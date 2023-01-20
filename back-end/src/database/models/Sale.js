@@ -8,30 +8,24 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     userId: {
-      field: 'user_id',
       type: DataTypes.INTEGER,
       foreignKey: true
     },
     sellerId: {
-      field: 'seller_id',
       type: DataTypes.INTEGER,
       foreignKey: true,
     },
     totalPrice: {
-      field: 'total_price',
-      type: DataTypes.NUMBER
+      type: DataTypes.DECIMAL,
     },
     deliveryAddress: {
-      field: 'delivery_address',
       type: DataTypes.STRING
     },
     deliveryNumber: {
-      field: 'delivery_number',
       type: DataTypes.STRING
     },
     saleDate: {
-      field: 'sale_date',
-      type: DataTypes.DATETIME
+      type: DataTypes.DATE
     },
     status: DataTypes.STRING
   },
@@ -42,11 +36,11 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Sale.associate = (models) => {
-    Sale.hasOne(models.User, {
+    Sale.belongsTo(models.User, {
       foreignKey: 'user_id',
       as: 'costumer',
     });
-    Sale.hasOne(models.User, {
+    Sale.belongsTo(models.User, {
       foreignKey: 'seller_id',
       as: 'seller',
     });

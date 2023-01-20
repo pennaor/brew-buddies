@@ -3,12 +3,13 @@ module.exports = {
     await queryInterface.bulkInsert('sales',
       [ 
         {
-          userId: 3,
-          sellerId: 2,
-          totalPrice: 10,
-          deliveryAddress: 'Rua dos bobos',
-          deliveryNumber: 369,
-          saleDate: '1994-06-21',
+          id: 1,
+          user_Id: 3,
+          seller_Id: 2,
+          total_Price: 10.00,
+          delivery_Address: 'Rua dos bobos',
+          delivery_Number: '369',
+          sale_Date: '1994-06-21',
           status: 'Entregue'
         }
       ], { timestamps: false });
