@@ -18,7 +18,7 @@ export default function Login() {
   };
 
   const handleLogin = () => {
-    signIn({ login, password });
+    signIn({ email: login, password });
   };
 
   return (

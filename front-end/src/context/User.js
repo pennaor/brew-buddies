@@ -8,10 +8,9 @@ function UserProvider({ children }) {
   const [user, setUser] = useState([]);
   const [userError, setUserError] = useState('');
 
-  console.log(user);
   const signIn = async (body) => {
     try {
-      const { data } = await requestLogin(body);
+      const data = await requestLogin(body);
       localStorage.setItem('user', data);
       setUser(data);
     } catch (error) {
