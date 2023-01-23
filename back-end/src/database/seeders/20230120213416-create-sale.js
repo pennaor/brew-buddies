@@ -6,10 +6,10 @@ module.exports = {
           id: 1,
           user_Id: 3,
           seller_Id: 2,
-          total_Price: 10.00,
-          delivery_Address: 'Rua dos bobos',
-          delivery_Number: '369',
-          sale_Date: '1994-06-21',
+          total_price: 10.00,
+          delivery_address: 'Rua dos bobos',
+          delivery_number: '369',
+          sale_date: '1994-06-21',
           status: 'Entregue'
         }
       ], { timestamps: false });
