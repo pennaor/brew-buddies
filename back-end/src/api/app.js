@@ -1,11 +1,13 @@
 const express = require('express');
 const errorManager = require('../middlewares/errorManager');
 const loginRouter = require('../routes/user.routes');
+const registerRouter = require('../routes/register.routes');
 require('express-async-errors');
 
 const app = express();
 app.use(express.json());
 app.use(loginRouter);
+app.use(registerRouter);
 
 app.use(errorManager);
 
