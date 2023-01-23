@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { UserContext } from '../context/User';
 
 export default function Login() {
   const [login, setLogin] = useState('');
   const [password, setPassoword] = useState('');
+  const [statusRedirect, setStatusRedirect] = useState(false);
+
+  const { signIn, userError } = useContext(UserContext);
 
   const validateStatusButton = () => {
     const regex = /\S+@\S+.\S+/;
@@ -10,6 +15,10 @@ export default function Login() {
     const emailValidator = regex.test(login);
     const passwordValidator = password.length >= minimumPasswordLength;
     return !(emailValidator && passwordValidator);
+  };
+
+  const handleLogin = () => {
+    signIn({ login, password });
   };
 
   return (
@@ -42,20 +51,24 @@ export default function Login() {
             type="button"
             data-testid="common_login__button-login"
             disabled={ validateStatusButton() }
+            onClick={ handleLogin }
           >
             Login
           </button>
           <button
             type="button"
             data-testid="common_login__button-register"
+            onClick={ () => setStatusRedirect(true) }
           >
             Ainda não tenho conta
           </button>
         </div>
-        <p
-          data-testid="common_login__element-invalid-email"
-        />
+        {
+          userError
+          && <p data-testid="common_login__element-invalid-email"> login Inválido </p>
+        }
       </div>
+      {statusRedirect && <Navigate to="/cadastro" /> }
     </main>
   );
 }
