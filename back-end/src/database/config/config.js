@@ -23,7 +23,8 @@ const options = {
   },
   logging: false,
 };
-
+// console.log(process.env.MYSQL_USER);
+// console.log(process.env.MYSQL_PASSWORD);
 module.exports = {
   development: {
     ...options,
