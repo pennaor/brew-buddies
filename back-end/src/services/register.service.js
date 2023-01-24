@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const { User } = require('../database/models');
 const { registerSchema } = require('../joi/schemas');
 
@@ -6,7 +7,7 @@ const registerUser = async (name, email, password) => {
   const { error } = registerSchema.validate({ name, email, password });
 
   if (error) { error.name = 'BAD_REQUEST'; throw error; }
-  const checkedUser = await User.findOne({ where: { email, name } });
+  const checkedUser = await User.findOne({ where: { [Op.or]: { email, name } } });
 
   if (checkedUser) {
     const err = new Error('User already registered');

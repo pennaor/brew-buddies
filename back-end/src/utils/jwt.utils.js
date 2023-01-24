@@ -15,13 +15,9 @@ const jwtConfig = {
 };
 
 const generateToken = (token) => jwt.sign(token, secretToken, jwtConfig);
-const verifyToken = async (token) => {
-  try {
-    const verToken = await jwt.verify(token, secretToken);
+const verifyToken = (token) => {
+    const verToken = jwt.verify(token, secretToken);
     return verToken;
-  } catch (_e) {
-    return { type: 401 };
-  }
 };
 
 module.exports = {
