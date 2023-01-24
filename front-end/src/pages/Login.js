@@ -1,24 +1,41 @@
-import React, { useContext, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { UserContext } from '../context/User';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { requestLogin } from '../services/requests';
 
 export default function Login() {
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassoword] = useState('');
-  const [statusRedirect, setStatusRedirect] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
-  const { signIn, userError } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const validateStatusButton = () => {
-    const regex = /\S+@\S+.\S+/;
+    const emailRegexValidate = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const minimumPasswordLength = 6;
-    const emailValidator = regex.test(login);
+    const emailValidator = emailRegexValidate.test(email);
     const passwordValidator = password.length >= minimumPasswordLength;
     return !(emailValidator && passwordValidator);
   };
 
-  const handleLogin = () => {
-    signIn({ email: login, password });
+  const changePathAfterLogin = (role) => {
+    console.log(role === 'administrator');
+    if (role === 'administrator') {
+      navigate('/admin/manage');
+    } else if (role === 'seller') {
+      navigate('/seller/orders');
+    } else {
+      navigate('/customer/products');
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const response = await requestLogin({ email, password });
+      localStorage.setItem('user', JSON.stringify(response));
+      changePathAfterLogin(response.user.role);
+    } catch (error) {
+      setLoginError(error.message);
+    }
   };
 
   return (
@@ -32,8 +49,8 @@ export default function Login() {
               id="email"
               placeholder="digite seu email, ex:.email@email.com"
               data-testid="common_login__input-email"
-              value={ login }
-              onChange={ ({ target }) => setLogin(target.value) }
+              value={ email }
+              onChange={ ({ target }) => setEmail(target.value) }
             />
           </label>
           <label htmlFor="password">
@@ -58,17 +75,15 @@ export default function Login() {
           <button
             type="button"
             data-testid="common_login__button-register"
-            onClick={ () => setStatusRedirect(true) }
+            onClick={ () => navigate('/register') }
           >
             Ainda não tenho conta
           </button>
         </div>
-        {
-          userError
-          && <p data-testid="common_login__element-invalid-email"> login Inválido </p>
-        }
+        {loginError && (
+          <p data-testid="common_login__element-invalid-email">{loginError}</p>
+        )}
       </div>
-      {statusRedirect && <Navigate to="/cadastro" /> }
     </main>
   );
 }
