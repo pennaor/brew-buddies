@@ -78,7 +78,7 @@ export default function Register() {
           </button>
         </div>
         {registerError && (
-          <p data-testid="common_register__element-invalid-register">{registerError}</p>
+          <p data-testid="common_register__element-invalid_register">{registerError}</p>
         )}
       </div>
     </main>
