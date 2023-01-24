@@ -6,7 +6,7 @@ const enableCors = require('../middlewares/enableCors');
 require('express-async-errors');
 
 const app = express();
-app.use(enableCors)
+app.use(enableCors);
 app.use(express.json());
 app.use(loginRouter);
 app.use(registerRouter);
