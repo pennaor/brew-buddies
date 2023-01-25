@@ -32,7 +32,7 @@ export default function Login() {
     try {
       const response = await requestLogin({ email, password });
       localStorage.setItem('user', JSON.stringify(response));
-      changePathAfterLogin(response.user.role);
+      changePathAfterLogin(response.role);
     } catch (error) {
       setLoginError(error.message);
     }

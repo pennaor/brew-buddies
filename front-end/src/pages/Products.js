@@ -12,7 +12,7 @@ export default function Products() {
 
   return (
     <div>
-      <Header user={ user } />
+      <Header { ...user } />
       <div>
         <ProductCard />
         <button
