@@ -24,7 +24,8 @@ const getUser = async (email, password) => {
 
   const { password: _, ...userWithoutPassword } = userData.dataValues;
   const token = jwtUtils.generateToken(userWithoutPassword);
-  return { user: userWithoutPassword, token };
+  delete userWithoutPassword.id
+  return { ...userWithoutPassword, token };
 };
 
 module.exports = { getUser };
