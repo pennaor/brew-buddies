@@ -24,13 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     deliveryNumber: {
       type: DataTypes.STRING
     },
-    saleDate: {
-      type: DataTypes.DATE
-    },
     status: DataTypes.STRING
   },
   {
-    timestamps: false,
+    timestamps: true,
+    updatedAt: false,
+    createdAt: "saleDate",
     tableName: 'sales',
     underscored: true,
   });

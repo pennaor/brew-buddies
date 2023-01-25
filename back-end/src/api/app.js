@@ -1,17 +1,19 @@
 const express = require('express');
 const errorManager = require('../middlewares/errorManager');
-const loginRouter = require('../routes/login.routes');
+const userRouter = require('../routes/user.routes');
 const registerRouter = require('../routes/register.routes');
 const enableCors = require('../middlewares/enableCors');
 const productRouter = require('../routes/product.router');
+const saleProductRouter = require('../routes/saleProduct.router');
 require('express-async-errors');
 
 const app = express();
 app.use(enableCors);
 app.use(express.json());
-app.use(loginRouter);
+app.use(userRouter);
 app.use(registerRouter);
 app.use(productRouter);
+app.use(saleProductRouter);
 
 app.use(errorManager);
 
