@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function Header() {
+export default function Header(props) {
   const navigate = useNavigate();
 
   const signOut = () => {
     localStorage.removeItem('user');
     navigate('/login');
   };
-
+  console.log(props);
   return (
     <header
       style={ { minWidth: '90%', padding: '0.5rem', backgroundColor: 'gray' } }
