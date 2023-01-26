@@ -3,21 +3,17 @@ const { Op } = require('sequelize');
 const { User } = require('../database/models');
 const jwtUtils = require('../utils/jwt.utils');
 const { loginSchema, registerSchema } = require('../joi/schemas');
+const HttpException = require('../exceptions/HttpException');
 
 const authenticate = async (email, password) => {
   const { error } = loginSchema.validate({ email, password });
-
   if (error) {
-    const err = new Error(error.message);
-    err.name = 'BAD_REQUEST';
-    throw err; 
+    throw new HttpException(400, error.message);
   } 
 
   const userData = await User.findOne({ where: { email, password: md5(password) } });
   if (!userData) {
-    const err = new Error('User not found');
-    err.name = 'NOT_FOUND';
-    throw err;
+    throw new HttpException(404, 'User not found');
   }
 
   const { password: _, ...userWithoutPassword } = userData.dataValues;
@@ -28,14 +24,13 @@ const authenticate = async (email, password) => {
 
 const register = async (name, email, password) => {
   const { error } = registerSchema.validate({ name, email, password });
+  if (error) {
+    throw new HttpException(400, error.message);
+  }
 
-  if (error) { error.name = 'BAD_REQUEST'; throw error; }
   const checkedUser = await User.findOne({ where: { [Op.or]: { email, name } } });
-
   if (checkedUser) {
-    const err = new Error('User already registered');
-    err.name = 'CONFLICT';
-    throw err;
+    throw new HttpException(409, 'User already registered');
   }
 
   const user = await User.create({
@@ -51,9 +46,7 @@ const register = async (name, email, password) => {
 const getByName = async (name) => {
   const user = await User.findOne({ where: { name } });
   if (!user) {
-    const error = new Error('User not found');
-    error.name = 'NOT_FOUND';
-    throw error;
+    throw new HttpException(404, 'User not found');
   }
   return user;
 };
