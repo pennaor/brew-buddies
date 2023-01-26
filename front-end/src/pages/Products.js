@@ -6,7 +6,9 @@ import { requestProducts } from '../services/requests';
 
 export default function Products() {
   const [user, setUser] = useState('');
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [shopCart, setShopCart] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchProducts = async () => {
     try {
@@ -17,40 +19,68 @@ export default function Products() {
     }
   };
 
+  const getStorageData = (storageName) => {
+    const data = JSON.parse(localStorage.getItem(storageName));
+    if (data === null) {
+      return [];
+    }
+    return data;
+  };
+
+  const addItemCart = (product) => {
+    const nonExistentIndex = -1;
+    const productIndex = shopCart.findIndex((cartItem) => cartItem.id === product.id);
+
+    if (productIndex === nonExistentIndex) {
+      localStorage.setItem(
+        'shopCart',
+        JSON.stringify([...shopCart, { ...product, quantity: 1 }]),
+      );
+      setShopCart(getStorageData('shopCart'));
+    } else {
+      const allProducts = shopCart;
+      allProducts[productIndex].quantity += 1;
+      localStorage.setItem(
+        'shopCart',
+        JSON.stringify([...allProducts]),
+      );
+      setShopCart(getStorageData('shopCart'));
+    }
+  };
+
   useEffect(() => {
-    const storageUser = JSON.parse(localStorage.getItem('user'));
-    setUser(storageUser);
+    setUser(getStorageData('user'));
+    setShopCart(getStorageData('shopCart'));
     fetchProducts();
+    setLoading(false);
   }, []);
 
-  if (user === '') {
-    return (
-      <Loading />
-    );
+  if (loading) {
+    return <Loading />;
   }
-
-  console.log(products);
 
   return (
     <div>
       <Header { ...user } />
       <div>
-        {
-          products === null ? (
-            <Loading />
-          ) : (
-            <ProductCard products={ products } />
-          )
-        }
-        <button
-          type="button"
-          data-testid="customer_products__button-cart"
-        >
+        {products.lenght === 0 ? (
+          <h2>Não há produtos cadastrados</h2>
+        ) : (
+          products.map((product) => (
+            <ProductCard
+              key={ product.id }
+              shopCart={ shopCart }
+              product={ product }
+              addItemCart={ addItemCart }
+              changeShopCart={ setShopCart }
+              getStorageData={ getStorageData }
+            />
+          ))
+        )}
+        <button type="button" data-testid="customer_products__button-cart">
           Ver Carrinho: R$
           {' '}
-          <span
-            data-testid="customer_products__checkout-bottom-value"
-          >
+          <span data-testid="customer_products__checkout-bottom-value">
             28,46
           </span>
         </button>
