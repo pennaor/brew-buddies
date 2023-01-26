@@ -1,11 +1,11 @@
 const express = require('express');
 const errorManager = require('../middlewares/errorManager');
 const userRouter = require('../routes/user.routes');
-const registerRouter = require('../routes/register.routes');
 const enableCors = require('../middlewares/enableCors');
-const productRouter = require('../routes/product.router');
-const saleProductRouter = require('../routes/saleProduct.router');
+const productRouter = require('../routes/product.routes');
+const saleProductRouter = require('../routes/saleProduct.routes');
 const saleRouter = require('../routes/sale.routes');
+const sellerRouter = require('../routes/seller.routes');
 require('express-async-errors');
 
 const app = express();
@@ -13,10 +13,10 @@ app.use(express.static('public'));
 app.use(enableCors);
 app.use(express.json());
 app.use(userRouter);
-app.use(registerRouter);
 app.use(productRouter);
 app.use(saleProductRouter);
 app.use(saleRouter);
+app.use(sellerRouter);
 
 app.use(errorManager);
 
