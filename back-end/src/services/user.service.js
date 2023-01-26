@@ -1,7 +1,8 @@
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const { User } = require('../database/models');
 const jwtUtils = require('../utils/jwt.utils');
-const { loginSchema } = require('../joi/schemas');
+const { loginSchema, registerSchema } = require('../joi/schemas');
 
 const authenticate = async (email, password) => {
   const { error } = loginSchema.validate({ email, password });
@@ -25,6 +26,28 @@ const authenticate = async (email, password) => {
   return { ...userWithoutPassword, token };
 };
 
+const register = async (name, email, password) => {
+  const { error } = registerSchema.validate({ name, email, password });
+
+  if (error) { error.name = 'BAD_REQUEST'; throw error; }
+  const checkedUser = await User.findOne({ where: { [Op.or]: { email, name } } });
+
+  if (checkedUser) {
+    const err = new Error('User already registered');
+    err.name = 'CONFLICT';
+    throw err;
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password: md5(password),
+    role: 'customer',
+  });
+  delete user.dataValues.password;
+  return user;
+};
+
 const getByName = async (name) => {
   const user = await User.findOne({ where: { name } });
   if (!user) {
@@ -35,4 +58,4 @@ const getByName = async (name) => {
   return user;
 };
 
-module.exports = { authenticate, getByName };
+module.exports = { authenticate, getByName, register };
