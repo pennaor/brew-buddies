@@ -21,7 +21,6 @@ export default function Register() {
   };
 
   const handleRegister = async () => {
-    console.log(`email: ${email}, name: ${name}, password: ${password}`);
     try {
       const response = await requestRegister({ email, password, name });
       localStorage.setItem('user', JSON.stringify(response));
