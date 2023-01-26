@@ -19,6 +19,20 @@ export default function Checkout() {
     return data;
   };
 
+  const removeItemCart = (itemId) => {
+    const newShopCart = shopCart.filter((item) => item.id !== itemId);
+    localStorage.setItem(
+      'shopCart',
+      JSON.stringify([...newShopCart]),
+    );
+    setShopCart(getStorageData('shopCart'));
+  };
+
+  const sumCartTotal = () => {
+    const sum = shopCart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0);
+    return sum.toFixed(2).replace('.', ',');
+  };
+
   useEffect(() => {
     setUser(getStorageData('user'));
     setShopCart(getStorageData('shopCart'));
@@ -34,11 +48,18 @@ export default function Checkout() {
       <Header { ...user } />
       <div>
         <h2>Finalizar Pedido</h2>
-        <OrderTable shopCart={ shopCart } />
+        <OrderTable
+          shopCart={ shopCart }
+          removeItem={ removeItemCart }
+        />
         <h1>
           Total: R$
           {' '}
-          <span>28,46</span>
+          <span
+            data-testid="customer_checkout__element-order-total-price"
+          >
+            {sumCartTotal()}
+          </span>
         </h1>
       </div>
       <div>
@@ -53,32 +74,38 @@ export default function Checkout() {
           <p>P. Vendedora Responsável</p>
           <p>Endereço</p>
           <p>Número</p>
-          <label htmlFor="sellers">
-            <select id="sellers" data-testId="customer_checkout__select-seller">
+          <label
+            htmlFor="sellers"
+          >
+            <select id="sellers" data-testid="customer_checkout__select-seller">
               {sellers.map((seller) => (
                 <option key={ seller }>{seller}</option>
               ))}
             </select>
           </label>
-          <label htmlFor="adress">
+          <label
+            htmlFor="adress"
+          >
             <input
               id="adress"
               type="text"
-              data-testId="customer_checkout__input-address"
+              data-testid="customer_checkout__input-address"
             />
           </label>
-          <label htmlFor="adress-number">
+          <label
+            htmlFor="adress-number"
+          >
             <input
               id="adress-number"
               type="number"
-              data-testId="customer_checkout__input-address-number"
+              data-testid="customer_checkout__input-address-number"
             />
           </label>
         </div>
       </div>
       <button
         type="button"
-        data-testId="customer_checkout__button-submit-order"
+        data-testid="customer_checkout__button-submit-order"
       >
         Finalizar Pedido
       </button>
