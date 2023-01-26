@@ -7,44 +7,22 @@ export default function ProductCard({
   product,
   shopCart,
   addItemCart,
-  changeShopCart,
-  getStorageData,
+  removeItemCart,
+  updateItemCart,
 }) {
   const [quantity, setQuantity] = useState(0);
   const { id, name, price, urlImage } = product;
 
-  const productIndex = shopCart.findIndex((item) => item.id === product.id);
-
-  const changeQuantity = () => {
-    if (productIndex === nonExistentIndex) {
-      setQuantity(0);
-    } else {
-      setQuantity(shopCart[productIndex].quantity);
-    }
-  };
-
-  function teste(value) {
-    setQuantity(value);
-    if (productIndex === -1) {
-      localStorage.setItem(
-        'shopCart',
-        JSON.stringify([...shopCart, { ...product, quantity: value }]),
-      );
-      changeShopCart(getStorageData('shopCart'));
-    } else {
-      const allProducts = shopCart;
-      allProducts[productIndex].quantity = value;
-      localStorage.setItem(
-        'shopCart',
-        JSON.stringify([...allProducts]),
-      );
-      changeShopCart(getStorageData('shopCart'));
-    }
-  }
+  const itemIndex = shopCart.findIndex((item) => item.id === product.id);
+  const itemQuantity = itemIndex !== nonExistentIndex ? (
+    shopCart[itemIndex].quantity
+  ) : (
+    0
+  );
 
   useEffect(() => {
-    changeQuantity();
-  }, [shopCart, changeQuantity]);
+    setQuantity(itemQuantity);
+  }, [itemQuantity]);
 
   return (
     <div key={ id }>
@@ -67,6 +45,8 @@ export default function ProductCard({
           <button
             type="button"
             data-testid={ `customer_products__button-card-rm-item-${id}` }
+            disabled={ quantity === 0 }
+            onClick={ () => removeItemCart(product) }
           >
             Remover
           </button>
@@ -77,7 +57,7 @@ export default function ProductCard({
               data-testid={ `customer_products__input-card-quantity-${id}` }
               placeholder="0"
               value={ quantity }
-              onChange={ ({ target }) => teste(Number(target.value)) }
+              onChange={ ({ target }) => updateItemCart(product, Number(target.value)) }
             />
           </label>
           <button
@@ -97,6 +77,6 @@ ProductCard.propTypes = {
   product: PropTypes.objectOf(PropTypes.any.isRequired).isRequired,
   shopCart: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
   addItemCart: PropTypes.func.isRequired,
-  changeShopCart: PropTypes.func.isRequired,
-  getStorageData: PropTypes.func.isRequired,
+  removeItemCart: PropTypes.func.isRequired,
+  updateItemCart: PropTypes.func.isRequired,
 };
