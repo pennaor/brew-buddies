@@ -23,6 +23,13 @@ module.exports = {
           password: '1c37466c159755ce1fa181bd247cb925',
           role: 'customer'
         },
+        {
+          id: 4,
+          name: 'Zé Birita Jr',
+          email: 'zebiritajr@email.com',
+          password: '1c37466c159755ce1fa181bd247cb925',
+          role: 'customer'
+        }
       ], { timestamps: false });
   },
   down: async (queryInterface, _Sequelize) => {
