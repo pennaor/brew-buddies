@@ -2,14 +2,32 @@ import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import OrderTable from '../components/OrderTable';
+import { requestAllSellers, setToken } from '../services/requests';
 
-const sellers = ['Juca Roberto', 'Patricia Daora', 'Osvaldo Monte'];
+// const sellers = [
+//   { id: 1, name: 'Juca Roberto' },
+//   { id: 2, name: 'Patricia Daora' },
+//   { id: 3, name: 'Osvaldo Monte' },
+// ];
 
 export default function Checkout() {
   const [user, setUser] = useState('');
   const [shopCart, setShopCart] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [delivery, setDelivery] = useState([]);
+  const [sellersAvaible, setSellersAvaible] = useState([]);
+  const [sellerName, setSellerName] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+
+  const fetchSellers = async () => {
+    try {
+      const response = await requestAllSellers();
+      setSellerName(response[0].name);
+      setSellersAvaible(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
@@ -21,21 +39,42 @@ export default function Checkout() {
 
   const removeItemCart = (itemId) => {
     const newShopCart = shopCart.filter((item) => item.id !== itemId);
-    localStorage.setItem(
-      'shopCart',
-      JSON.stringify([...newShopCart]),
-    );
+    localStorage.setItem('shopCart', JSON.stringify([...newShopCart]));
     setShopCart(getStorageData('shopCart'));
   };
 
   const sumCartTotal = () => {
-    const sum = shopCart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0);
+    const sum = shopCart.reduce(
+      (acc, curr) => acc + curr.quantity * curr.price,
+      0,
+    );
     return sum.toFixed(2).replace('.', ',');
+  };
+
+  const createNewSeller = async () => {
+    const products = shopCart.map(({ id, quantity }) => ({ productId: id, quantity }));
+    const body = {
+      sellerName,
+      totalPrice: Number(sumCartTotal().replace(',', '.')),
+      deliveryAddress,
+      deliveryNumber,
+      products,
+    };
+    console.log(body);
+    // try {
+    //   setToken(user.token);
+    //   const sellerId = await requestCreateSeller(body);
+    //   localStorage.removeItem('shopCart');
+    //   navigate(`/customer/orders/${sellerId}`);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   useEffect(() => {
     setUser(getStorageData('user'));
     setShopCart(getStorageData('shopCart'));
+    fetchSellers();
     setLoading(false);
   }, [setLoading]);
 
@@ -48,16 +87,11 @@ export default function Checkout() {
       <Header { ...user } />
       <div>
         <h2>Finalizar Pedido</h2>
-        <OrderTable
-          shopCart={ shopCart }
-          removeItem={ removeItemCart }
-        />
+        <OrderTable shopCart={ shopCart } removeItem={ removeItemCart } />
         <h1>
           Total: R$
           {' '}
-          <span
-            data-testid="customer_checkout__element-order-total-price"
-          >
+          <span data-testid="customer_checkout__element-order-total-price">
             {sumCartTotal()}
           </span>
         </h1>
@@ -68,43 +102,52 @@ export default function Checkout() {
           style={ {
             display: 'grid',
             gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-
           } }
         >
           <p>P. Vendedora Responsável</p>
           <p>Endereço</p>
           <p>Número</p>
-          <label
-            htmlFor="sellers"
-          >
-            <select id="sellers" data-testid="customer_checkout__select-seller">
-              {sellers.map((seller) => (
-                <option key={ seller }>{seller}</option>
+          <label htmlFor="sellers">
+            <select
+              id="sellers"
+              data-testid="customer_checkout__select-seller"
+              onChange={ ({ target }) => { setSellerName(target.value); } }
+            >
+              {sellersAvaible.map((sellerAvaible) => (
+                <option
+                  key={ sellerAvaible.id }
+                  value={ sellerAvaible.name }
+                >
+                  {sellerAvaible.name}
+                </option>
               ))}
             </select>
           </label>
-          <label
-            htmlFor="adress"
-          >
+          <label htmlFor="adress">
             <input
               id="adress"
               type="text"
               data-testid="customer_checkout__input-address"
+              value={ deliveryAddress }
+              onChange={ ({ target }) => setDeliveryAddress(target.value) }
+              placeholder="Rua da Oliveiras, São Francisco..."
             />
           </label>
-          <label
-            htmlFor="adress-number"
-          >
+          <label htmlFor="adress-number">
             <input
               id="adress-number"
-              type="number"
+              type="text"
               data-testid="customer_checkout__input-address-number"
+              value={ deliveryNumber }
+              onChange={ ({ target }) => setDeliveryNumber(target.value) }
+              placeholder="189"
             />
           </label>
         </div>
       </div>
       <button
         type="button"
+        onClick={ () => createNewSeller() }
         data-testid="customer_checkout__button-submit-order"
       >
         Finalizar Pedido
