@@ -23,6 +23,11 @@ const create = async (userId, payload, createOptions) => {
 
 const getSaleById = async (id) => {
   const sale = await Sale.findByPk(id);
+  if (!sale) {
+    const error = new Error('Sale not found');
+    error.name = 'NOT_FOUND';
+    throw error;
+  }
   return sale;
 };
 
