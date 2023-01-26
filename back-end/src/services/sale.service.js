@@ -22,7 +22,7 @@ const create = async (userId, payload, createOptions) => {
 };
 
 const getSaleById = async (id) => {
-  const sale = await Sale.findByPk({ where: { id }, raw: true });
+  const sale = await Sale.findByPk(id);
   return sale;
 };
 
