@@ -60,18 +60,6 @@ const saleSchema = Joi.object({
   }),
 });
 
-// {
-//   "sellerName": "Delivery App Admin",
-//   "totalPrice": 300.50,
-//   "deliveryAddress": "rua dos bobos",
-//   "deliveryNumber": "numero 1",
-//   "products": [
-//     { "productId": 1, "quantity": 5 },
-//     { "productId": 2, "quantity": 8 },
-//     { "productId": 99, "quantity": 8 }
-//   ]
-// }
-
 module.exports = {
   loginSchema,
   registerSchema,
