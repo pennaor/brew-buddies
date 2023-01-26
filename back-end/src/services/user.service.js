@@ -3,11 +3,8 @@ const { User } = require('../database/models');
 const jwtUtils = require('../utils/jwt.utils');
 const { loginSchema } = require('../joi/schemas');
 
-const getUser = async (email, password) => {
-  const { error } = loginSchema.validate({
-    email,
-    password,
-  });
+const authenticate = async (email, password) => {
+  const { error } = loginSchema.validate({ email, password });
 
   if (error) {
     const err = new Error(error.message);
@@ -24,8 +21,18 @@ const getUser = async (email, password) => {
 
   const { password: _, ...userWithoutPassword } = userData.dataValues;
   const token = jwtUtils.generateToken(userWithoutPassword);
-  delete userWithoutPassword.id
+  delete userWithoutPassword.id;
   return { ...userWithoutPassword, token };
 };
 
-module.exports = { getUser };
+const getByName = async (name) => {
+  const user = await User.findOne({ where: { name } });
+  if (!user) {
+    const error = new Error('User not found');
+    error.name = 'NOT_FOUND';
+    throw error;
+  }
+  return user;
+};
+
+module.exports = { authenticate, getByName };
