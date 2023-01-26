@@ -4,6 +4,6 @@ const authUser = require('../middlewares/authUser');
 
 const saleProductRouter = Router();
 
-saleProductRouter.post('/customer/orders', authUser, create);
+saleProductRouter.post('/', authUser, create);
 
 module.exports = saleProductRouter;

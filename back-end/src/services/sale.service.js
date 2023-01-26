@@ -1,10 +1,13 @@
 const { Sale } = require('../database/models');
+const HttpException = require('../exceptions/HttpException');
 const { saleSchema } = require('../joi/schemas');
 const userService = require('./user.service');
 
 const create = async (userId, payload, createOptions) => {
   const { error } = saleSchema.validate(payload);
-  if (error) { error.name = 'BAD_REQUEST'; throw error; }
+  if (error) {
+    throw new HttpException(400, error.message);
+  }
   const {
     sellerName, totalPrice, deliveryAddress,
     deliveryNumber,
@@ -24,20 +27,12 @@ const create = async (userId, payload, createOptions) => {
 const getSaleById = async (id) => {
   const sale = await Sale.findByPk(id);
   if (!sale) {
-    const error = new Error('Sale not found');
-    error.name = 'NOT_FOUND';
-    throw error;
+    throw new HttpException(404, 'Sale not found');
   }
   return sale;
-};
-
-const getSalesByUserId = async (userId) => {
-  const sales = await Sale.findAll({ where: { userId }, raw: true });
-  return sales;
 };
 
 module.exports = {
   create,
   getSaleById,
-  getSalesByUserId,
 };

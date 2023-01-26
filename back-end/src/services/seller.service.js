@@ -1,4 +1,5 @@
-const { User } = require('../database/models');
+const { User, Sale } = require('../database/models');
+const HttpException = require('../exceptions/HttpException');
 
 const getAllSellers = async () => User.findAll({ 
   where: { role: 'seller' }, attributes: { exclude: ['password'] } });
@@ -8,11 +9,14 @@ const getSellerById = async (sellerId) => {
     where: { id: sellerId, role: 'seller' }, attributes: { exclude: ['password'] } });
 
   if (!seller) {
-    const error = new Error('Seller not found');
-    error.name = 'NOT_FOUND';
-    throw error;
+    throw new HttpException(404, 'Seller not found');
   }
   return seller;
 };
 
-module.exports = { getAllSellers, getSellerById }; 
+const getSalesBySellerId = async (sellerId) => {
+  const sales = await Sale.findAll({ where: { sellerId }, raw: true });
+  return sales;
+};
+
+module.exports = { getAllSellers, getSellerById, getSalesBySellerId }; 
