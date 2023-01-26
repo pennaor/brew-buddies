@@ -7,6 +7,7 @@ const productRouter = require('../routes/product.router');
 require('express-async-errors');
 
 const app = express();
+app.use(express.static('public'));
 app.use(enableCors);
 app.use(express.json());
 app.use(loginRouter);

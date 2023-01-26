@@ -28,7 +28,7 @@ export default function ProductCard({
     <div key={ id }>
       <div>
         <p data-testid={ `customer_products__element-card-price-${id}` }>
-          {price}
+          {price.toString().replace('.', ',')}
         </p>
         <img
           data-testid={ `customer_products__img-card-bg-image-${id}` }

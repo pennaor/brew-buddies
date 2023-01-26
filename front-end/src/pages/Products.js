@@ -96,8 +96,7 @@ export default function Products() {
 
   const sumCartTotal = () => {
     const sum = shopCart.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0);
-    console.log(sum);
-    return sum.toFixed(2);
+    return sum.toFixed(2).replace('.', ',');
   };
 
   useEffect(() => {
@@ -110,7 +109,7 @@ export default function Products() {
   if (loading) {
     return <Loading />;
   }
-
+  console.log(typeof sumCartTotal());
   return (
     <div>
       <Header { ...user } />
@@ -133,6 +132,7 @@ export default function Products() {
           type="button"
           data-testid="customer_products__button-cart"
           onClick={ () => navigate('/customer/checkout') }
+          disabled={ sumCartTotal() === '0,00' }
         >
           Ver Carrinho: R$
           {' '}
