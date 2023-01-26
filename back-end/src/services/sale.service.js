@@ -21,6 +21,12 @@ const create = async (userId, payload, createOptions) => {
   return result;
 };
 
+const getSaleById = async (id) => {
+  const sale = await Sale.findByPk({ where: { id }, raw: true });
+  return sale;
+};
+
 module.exports = {
   create,
+  getSaleById,
 };

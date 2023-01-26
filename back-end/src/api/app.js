@@ -5,6 +5,7 @@ const registerRouter = require('../routes/register.routes');
 const enableCors = require('../middlewares/enableCors');
 const productRouter = require('../routes/product.router');
 const saleProductRouter = require('../routes/saleProduct.router');
+const saleRouter = require('../routes/sale.routes');
 require('express-async-errors');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(userRouter);
 app.use(registerRouter);
 app.use(productRouter);
 app.use(saleProductRouter);
+app.use(saleRouter);
 
 app.use(errorManager);
 
