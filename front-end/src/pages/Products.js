@@ -109,7 +109,7 @@ export default function Products() {
   if (loading) {
     return <Loading />;
   }
-  console.log(typeof sumCartTotal());
+
   return (
     <div>
       <Header { ...user } />
