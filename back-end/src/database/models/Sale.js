@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: true,
     },
     totalPrice: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(9,2),
     },
     deliveryAddress: {
       type: DataTypes.STRING

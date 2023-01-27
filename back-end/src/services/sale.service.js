@@ -1,7 +1,6 @@
 const { Sale } = require('../database/models');
 const HttpException = require('../exceptions/HttpException');
 const { saleSchema } = require('../joi/schemas');
-const userService = require('./user.service');
 
 const create = async (userId, payload, createOptions) => {
   const { error } = saleSchema.validate(payload);
@@ -9,13 +8,12 @@ const create = async (userId, payload, createOptions) => {
     throw new HttpException(400, error.message);
   }
   const {
-    sellerName, totalPrice, deliveryAddress,
+    sellerId, totalPrice, deliveryAddress,
     deliveryNumber,
   } = payload;
-  const seller = await userService.getByName(sellerName);
   const result = await Sale.create({
     userId,
-    sellerId: seller.id,
+    sellerId,
     totalPrice,
     deliveryAddress,
     deliveryNumber,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
+import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Manage from './pages/Manage';
 import Orders from './pages/Orders';
@@ -12,6 +13,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/customer/products" element={ <Products /> } />
+        <Route path="/customer/checkout" element={ <Checkout /> } />
         <Route path="/seller/orders" element={ <Orders /> } />
         <Route path="/admin/manage" element={ <Manage /> } />
         <Route path="/register" element={ <Register /> } />
