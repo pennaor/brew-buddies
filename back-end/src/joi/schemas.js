@@ -67,6 +67,10 @@ const updateSaleStatusSchema = Joi.object({
   status: saleStatusSchema.required(),
 });
 
+const roleStatusSchema = Joi.valid('administrator', 'seller', 'customer');
+
+const adminRegister = registerSchema.append(roleStatusSchema.required());
+
 module.exports = {
   loginSchema,
   registerSchema,
@@ -76,4 +80,5 @@ module.exports = {
   saleStatusSchema,
   positiveInteger,
   updateSaleStatusSchema,
+  adminRegister,
 };
