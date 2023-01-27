@@ -9,10 +9,10 @@ export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchOrders = async () => {
+  const fetchOrders = async (id) => {
+    console.log('ativou');
     try {
-      console.log(user.id);
-      const response = await requestOrdersByClient(user.id);
+      const response = await requestOrdersByClient(id);
       setOrders(response);
     } catch (error) {
       console.log(error);
@@ -29,15 +29,16 @@ export default function Orders() {
 
   useEffect(() => {
     setUser(getStorageData('user'));
-    fetchOrders();
-    setLoading(false);
   }, []);
+
+  useEffect(() => {
+    fetchOrders(user.id);
+    setLoading(false);
+  }, [user]);
 
   if (loading) {
     return <Loading />;
   }
-
-  console.log(orders);
 
   return (
     <div>

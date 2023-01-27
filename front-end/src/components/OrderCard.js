@@ -1,24 +1,22 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 export default function OrderCard({ order }) {
-  console.log(order);
   const { id, status, saleDate, totalPrice } = order;
+
+  const formatedDate = dayjs(saleDate).format('DD/MM/YYYY');
+
   return (
-    <div>
+    <Link to={ `${id}` }>
       <div>
-        <p>
-          Pedido
-        </p>
-        <p
-          data-testid={ `customer_orders__element-order-id-${id}` }
-        >
-          {}
+        <p>Pedido</p>
+        <p data-testid={ `customer_orders__element-order-id-${id}` }>
+          {id}
         </p>
       </div>
       <div>
-        <p
-          data-testid={ `customer_orders__element-delivery-status-${id}` }
-        >
+        <p data-testid={ `customer_orders__element-delivery-status-${id}` }>
           {status}
         </p>
       </div>
@@ -26,7 +24,7 @@ export default function OrderCard({ order }) {
         <p
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
-          {saleDate}
+          {formatedDate}
         </p>
         <p>
           R$
@@ -34,11 +32,11 @@ export default function OrderCard({ order }) {
           <span
             data-testid={ `customer_orders__element-card-price-${id}` }
           >
-            {totalPrice}
+            {totalPrice.replace('.', ',')}
           </span>
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
 
