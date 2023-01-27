@@ -1,6 +1,6 @@
 const { Sale } = require('../database/models');
 const HttpException = require('../exceptions/HttpException');
-const { saleSchema } = require('../joi/schemas');
+const { saleSchema, updateSaleStatusSchema } = require('../joi/schemas');
 
 const create = async (userId, payload, createOptions) => {
   const { error } = saleSchema.validate(payload);
@@ -30,7 +30,25 @@ const getSaleById = async (id) => {
   return sale;
 };
 
+const updateSaleStatus = async (saleId, status) => {
+  const { error } = updateSaleStatusSchema.validate({ saleId, status });
+  if (error) {
+    throw new HttpException(400, error.message);
+  }
+  await Sale.update(
+    {
+      status,
+    },
+    {
+      where: {
+        id: saleId,
+      },
+    },
+  );
+};
+
 module.exports = {
   create,
   getSaleById,
+  updateSaleStatus,
 };
