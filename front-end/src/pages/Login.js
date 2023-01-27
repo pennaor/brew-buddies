@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { requestLogin } from '../services/requests';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassoword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [user, setUser] = useState('');
 
   const navigate = useNavigate();
+
+  const getStorageData = (storageName) => {
+    const data = JSON.parse(localStorage.getItem(storageName));
+    if (data === null) {
+      return [];
+    }
+    return data;
+  };
 
   const validateStatusButton = () => {
     const emailRegexValidate = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -36,6 +45,14 @@ export default function Login() {
       setLoginError(error.message);
     }
   };
+
+  useEffect(() => {
+    setUser(getStorageData('user'));
+  }, []);
+
+  if (user.name) {
+    return (<Navigate to="/customer/products" />);
+  }
 
   return (
     <main>
