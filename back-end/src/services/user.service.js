@@ -18,7 +18,6 @@ const authenticate = async (email, password) => {
 
   const { password: _, ...userWithoutPassword } = userData.dataValues;
   const token = jwtUtils.generateToken(userWithoutPassword);
-  delete userWithoutPassword.id;
   return { ...userWithoutPassword, token };
 };
 
