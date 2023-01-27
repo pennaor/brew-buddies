@@ -60,10 +60,20 @@ const saleSchema = Joi.object({
   }),
 });
 
+const saleStatusSchema = Joi.valid('Em trânsito', 'Pendente', 'Preparando', 'Entregue');
+
+const updateSaleStatusSchema = Joi.object({
+  saleId: positiveInteger.label('saleId').required(),
+  status: saleStatusSchema.required(),
+});
+
 module.exports = {
   loginSchema,
   registerSchema,
   saleSchema,
   productSchema,
   productArraySchema,
+  saleStatusSchema,
+  positiveInteger,
+  updateSaleStatusSchema,
 };
