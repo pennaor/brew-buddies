@@ -1,7 +1,11 @@
+import Header from '../components/Header';
+import OrderCard from '../components/OrderCard';
+
 export default function Orders() {
   return (
     <div>
-      Oi eu sou o Orders
+      <Header />
+      <OrderCard />
     </div>
   );
 }
