@@ -69,7 +69,7 @@ const updateSaleStatusSchema = Joi.object({
 
 const roleStatusSchema = Joi.valid('administrator', 'seller', 'customer');
 
-const adminRegister = registerSchema.append(roleStatusSchema.required());
+const adminRegister = registerSchema.append({ role: roleStatusSchema.required() });
 
 module.exports = {
   loginSchema,
