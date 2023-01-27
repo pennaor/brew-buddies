@@ -19,7 +19,7 @@ export const requestRegister = async (body) => {
 };
 
 export const requestProducts = async () => {
-  const { data } = await api.get('/customer/products');
+  const { data } = await api.get('/products');
   return data;
 };
 
@@ -28,8 +28,8 @@ export const requestAllSellers = async () => {
   return data;
 };
 
-export const requestCreateSeller = async (body) => {
-  const { data } = await api.post('/sellers', body);
+export const requestCreateOrder = async (body) => {
+  const { data } = await api.post('/orders_products', body);
   return data;
 };
 

@@ -1,28 +1,25 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import OrderTable from '../components/OrderTable';
-import { requestAllSellers, setToken } from '../services/requests';
-
-// const sellers = [
-//   { id: 1, name: 'Juca Roberto' },
-//   { id: 2, name: 'Patricia Daora' },
-//   { id: 3, name: 'Osvaldo Monte' },
-// ];
+import { requestAllSellers, requestCreateOrder, setToken } from '../services/requests';
 
 export default function Checkout() {
   const [user, setUser] = useState('');
   const [shopCart, setShopCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sellersAvaible, setSellersAvaible] = useState([]);
-  const [sellerName, setSellerName] = useState('');
+  const [sellerId, setSellerId] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
+
+  const navigate = useNavigate();
 
   const fetchSellers = async () => {
     try {
       const response = await requestAllSellers();
-      setSellerName(response[0].name);
+      setSellerId(response[0].id);
       setSellersAvaible(response);
     } catch (error) {
       console.log(error);
@@ -54,21 +51,21 @@ export default function Checkout() {
   const createNewSeller = async () => {
     const products = shopCart.map(({ id, quantity }) => ({ productId: id, quantity }));
     const body = {
-      sellerName,
+      sellerId,
       totalPrice: Number(sumCartTotal().replace(',', '.')),
       deliveryAddress,
       deliveryNumber,
       products,
     };
     console.log(body);
-    // try {
-    //   setToken(user.token);
-    //   const sellerId = await requestCreateSeller(body);
-    //   localStorage.removeItem('shopCart');
-    //   navigate(`/customer/orders/${sellerId}`);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      setToken(user.token);
+      const { saleId } = await requestCreateOrder(body);
+      localStorage.removeItem('shopCart');
+      navigate(`/customer/orders/${saleId}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -81,7 +78,7 @@ export default function Checkout() {
   if (loading) {
     return <Loading />;
   }
-
+  console.log(sellerId);
   return (
     <div>
       <Header { ...user } />
@@ -111,12 +108,12 @@ export default function Checkout() {
             <select
               id="sellers"
               data-testid="customer_checkout__select-seller"
-              onChange={ ({ target }) => { setSellerName(target.value); } }
+              onChange={ ({ target }) => { setSellerId(target.value); } }
             >
               {sellersAvaible.map((sellerAvaible) => (
                 <option
                   key={ sellerAvaible.id }
-                  value={ sellerAvaible.name }
+                  value={ sellerAvaible.id }
                 >
                   {sellerAvaible.name}
                 </option>

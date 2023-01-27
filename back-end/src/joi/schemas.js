@@ -43,7 +43,7 @@ const productArraySchema = Joi.array().items(productSchema).min(1).required()
   .label('products');
 
 const saleSchema = Joi.object({
-  sellerName: Joi.string().required().messages({
+  sellerId: positiveInteger.required().label('sellerId').messages({
   anyRequired: `sellerName ${anyRequired}`,
   }),
 

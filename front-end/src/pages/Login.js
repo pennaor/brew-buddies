@@ -18,7 +18,6 @@ export default function Login() {
   };
 
   const changePathAfterLogin = (role) => {
-    console.log(role === 'administrator');
     if (role === 'administrator') {
       navigate('/admin/manage');
     } else if (role === 'seller') {
