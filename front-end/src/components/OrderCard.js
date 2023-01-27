@@ -1,5 +1,8 @@
-export default function OrderCard() {
-  const id = 1;
+import PropTypes from 'prop-types';
+
+export default function OrderCard({ order }) {
+  console.log(order);
+  const { id, status, saleDate, totalPrice } = order;
   return (
     <div>
       <div>
@@ -9,21 +12,21 @@ export default function OrderCard() {
         <p
           data-testid={ `customer_orders__element-order-id-${id}` }
         >
-          0001
+          {}
         </p>
       </div>
       <div>
         <p
           data-testid={ `customer_orders__element-delivery-status-${id}` }
         >
-          PENDENTE
+          {status}
         </p>
       </div>
       <div>
         <p
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
-          08/04/21
+          {saleDate}
         </p>
         <p>
           R$
@@ -31,10 +34,14 @@ export default function OrderCard() {
           <span
             data-testid={ `customer_orders__element-card-price-${id}` }
           >
-            23,80
+            {totalPrice}
           </span>
         </p>
       </div>
     </div>
   );
 }
+
+OrderCard.propTypes = {
+  order: PropTypes.objectOf(PropTypes.any.isRequired).isRequired,
+};
