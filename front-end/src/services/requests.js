@@ -52,4 +52,9 @@ export const requestChangeStatusOrder = async (id, status) => {
   await api.put(`/orders/${id}`, { status });
 };
 
+export const requestCreateUser = async (body) => {
+  const { data } = await api.post('/admin/manage/register', body);
+  return data;
+};
+
 export default api;

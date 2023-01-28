@@ -9,7 +9,7 @@ import CustomerOrders from './pages/CustomerOrders';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrderDetails from './pages/SellerOrderDetails';
-import Manage from './pages/Manage';
+import Manage from './pages/AdminManage';
 
 function App() {
   return (
