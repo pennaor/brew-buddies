@@ -33,6 +33,11 @@ export const requestCreateOrder = async (body) => {
   return data;
 };
 
+export const requestOrderById = async (id) => {
+  const { data } = await api.get(`/orders/${id}`);
+  return data;
+};
+
 export const requestOrdersByClient = async (id) => {
   const { data } = await api.get(`/customer/${id}/orders`);
   return data;

@@ -10,7 +10,6 @@ export default function Orders() {
   const [loading, setLoading] = useState(true);
 
   const fetchOrders = async (id) => {
-    console.log('ativou');
     try {
       const response = await requestOrdersByClient(id);
       setOrders(response);
