@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 import OrderTable from '../components/OrderTable';
 import { requestAllSellers, requestCreateOrder, setToken } from '../services/requests';
 
-export default function Checkout() {
+export default function CustomerCheckout() {
   const [user, setUser] = useState('');
   const [shopCart, setShopCart] = useState([]);
   const [loading, setLoading] = useState(true);
