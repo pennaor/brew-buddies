@@ -84,7 +84,11 @@ export default function Checkout() {
       <Header { ...user } />
       <div>
         <h2>Finalizar Pedido</h2>
-        <OrderTable shopCart={ shopCart } removeItem={ removeItemCart } />
+        <OrderTable
+          productOrders={ shopCart }
+          removeItem={ removeItemCart }
+          page="customer_checkout"
+        />
         <h1>
           Total: R$
           {' '}

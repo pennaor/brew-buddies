@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 
-export default function OrderTable({ shopCart, removeItem }) {
-  const tableHeader = [
-    'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item',
+export default function OrderTable({ productOrders, removeItem, page }) {
+  let tableHeader = [
+    'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total',
   ];
+  if (page === 'customer_checkout') {
+    tableHeader = [...tableHeader, 'Remover Item'];
+  }
 
   return (
     <table>
@@ -15,24 +18,24 @@ export default function OrderTable({ shopCart, removeItem }) {
         </tr>
       </thead>
       <tbody>
-        {shopCart.map((itemCart, index) => (
+        {productOrders.map((itemCart, index) => (
           <tr
             key={ itemCart.id }
           >
             <td
               data-testid={
-                `customer_checkout__element-order-table-item-number-${index}`
+                `${page}__element-order-table-item-number-${index}`
               }
             >
               {index + 1}
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-name-${index}` }
+              data-testid={ `${page}__element-order-table-name-${index}` }
             >
               {itemCart.name}
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+              data-testid={ `${page}__element-order-table-quantity-${index}` }
             >
               {itemCart.quantity}
             </td>
@@ -40,7 +43,7 @@ export default function OrderTable({ shopCart, removeItem }) {
               {'R$ '}
               <span
                 data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
+                  `${page}__element-order-table-unit-price-${index}`
                 }
               >
                 {(itemCart.price)
@@ -52,7 +55,7 @@ export default function OrderTable({ shopCart, removeItem }) {
               {'R$ '}
               <span
                 data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
+                  `${page}__element-order-table-sub-total-${index}`
                 }
               >
                 {(itemCart.price * itemCart.quantity)
@@ -61,16 +64,21 @@ export default function OrderTable({ shopCart, removeItem }) {
                   .replace('.', ',')}
               </span>
             </td>
-            <td>
-              <button
-                name={ itemCart.id }
-                type="button"
-                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-                onClick={ ({ target }) => removeItem(Number(target.name)) }
-              >
-                Remover
-              </button>
-            </td>
+            {
+              page === 'customer_checkout'
+            && (
+              <td>
+                <button
+                  name={ itemCart.id }
+                  type="button"
+                  data-testid={ `${page}__element-order-table-remove-${index}` }
+                  onClick={ ({ target }) => removeItem(Number(target.name)) }
+                >
+                  Remover
+                </button>
+              </td>
+            )
+            }
           </tr>
         ))}
       </tbody>
@@ -78,7 +86,12 @@ export default function OrderTable({ shopCart, removeItem }) {
   );
 }
 
+OrderTable.defaultProps = {
+  removeItem: null,
+};
+
 OrderTable.propTypes = {
-  shopCart: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
-  removeItem: PropTypes.func.isRequired,
+  productOrders: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
+  page: PropTypes.string.isRequired,
+  removeItem: PropTypes.func,
 };
