@@ -51,7 +51,18 @@ export default function Login() {
   }, []);
 
   if (user.name) {
-    return (<Navigate to="/customer/products" />);
+    console.log(user.role);
+    if (user.role === 'customer') {
+      return (<Navigate to="/customer/products" />);
+    }
+
+    if (user.role === 'seller') {
+      return (<Navigate to="/seller/orders" />);
+    }
+
+    if (user.role === 'administrator') {
+      return (<Navigate to="/admin/manage" />);
+    }
   }
 
   return (
