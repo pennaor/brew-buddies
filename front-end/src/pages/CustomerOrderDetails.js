@@ -6,7 +6,7 @@ import Loading from '../components/Loading';
 import OrderTable from '../components/OrderTable';
 import { requestChangeStatusOrder, requestOrderById } from '../services/requests';
 
-export default function OrderDetails() {
+export default function CustomerOrderDetails() {
   const [user, setUser] = useState('');
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState({});

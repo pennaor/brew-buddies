@@ -4,7 +4,7 @@ import Loading from '../components/Loading';
 import OrderCard from '../components/OrderCard';
 import { requestOrdersByClient } from '../services/requests';
 
-export default function Orders() {
+export default function CustomerOrders() {
   const [user, setUser] = useState('');
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,6 +46,7 @@ export default function Orders() {
         <OrderCard
           key={ order.id }
           order={ order }
+          page="customer_products"
         />
       ))}
     </div>

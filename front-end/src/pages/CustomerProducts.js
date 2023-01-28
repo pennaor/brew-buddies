@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 import ProductCard from '../components/ProductCard';
 import { requestProducts } from '../services/requests';
 
-export default function Products() {
+export default function CustomerProducts() {
   const [user, setUser] = useState('');
   const [products, setProducts] = useState([]);
   const [shopCart, setShopCart] = useState([]);

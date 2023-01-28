@@ -43,6 +43,11 @@ export const requestOrdersByClient = async (id) => {
   return data;
 };
 
+export const requestOrdersBySeller = async (id) => {
+  const { data } = await api.get(`/sellers/${id}/orders`);
+  return data;
+};
+
 export const requestChangeStatusOrder = async (id, status) => {
   await api.put(`/orders/${id}`, { status });
 };

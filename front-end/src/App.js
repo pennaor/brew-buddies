@@ -1,25 +1,27 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
-import Checkout from './pages/Checkout';
 import Login from './pages/Login';
-import Manage from './pages/Manage';
-import OrderDetails from './pages/OrderDetails';
-import Orders from './pages/Orders';
-import Products from './pages/Products';
 import Register from './pages/Register';
+import CustomerProducts from './pages/CustomerProducts';
+import CustomerCheckout from './pages/CustomerCheckout';
+import CustomerOrders from './pages/CustomerOrders';
+import CustomerOrderDetails from './pages/CustomerOrderDetails';
+import SellerOrders from './pages/SellerOrders';
+import Manage from './pages/Manage';
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/customer/products" element={ <Products /> } />
-        <Route path="/customer/checkout" element={ <Checkout /> } />
-        <Route path="/customer/orders" element={ <Orders /> } />
-        <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
-        <Route path="/admin/manage" element={ <Manage /> } />
-        <Route path="/register" element={ <Register /> } />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/register" element={ <Register /> } />
+        <Route path="/customer/products" element={ <CustomerProducts /> } />
+        <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
+        <Route path="/customer/orders" element={ <CustomerOrders /> } />
+        <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
+        <Route path="/seller/orders" element={ <SellerOrders /> } />
+        <Route path="/admin/manage" element={ <Manage /> } />
         <Route exact path="/" element={ <Navigate to="/login" /> } />
       </Routes>
     </div>
