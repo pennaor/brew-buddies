@@ -8,6 +8,7 @@ import CustomerCheckout from './pages/CustomerCheckout';
 import CustomerOrders from './pages/CustomerOrders';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import SellerOrders from './pages/SellerOrders';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 import Manage from './pages/Manage';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
         <Route path="/customer/orders" element={ <CustomerOrders /> } />
         <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
+        <Route path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
         <Route path="/seller/orders" element={ <SellerOrders /> } />
         <Route path="/admin/manage" element={ <Manage /> } />
         <Route exact path="/" element={ <Navigate to="/login" /> } />

@@ -15,6 +15,14 @@ const CUSTOMER_BUTTON = [
   },
 ];
 
+const SELLER_BUTTON = [
+  {
+    testId: 'customer_products__element-navbar-link-orders',
+    rota: '/seller/orders',
+    description: 'Produtos',
+  },
+];
+
 export default function Header({ name, role }) {
   const navigate = useNavigate();
 
@@ -37,6 +45,7 @@ export default function Header({ name, role }) {
   return (
     <nav>
       {role === 'customer' && buttonFactory(CUSTOMER_BUTTON)}
+      {role === 'seller' && buttonFactory(SELLER_BUTTON)}
       <h2
         data-testid="customer_products__element-navbar-user-full-name"
       >
