@@ -4,22 +4,7 @@ import ClientOrderLabel from '../components/ClientOrderLabel';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import OrderTable from '../components/OrderTable';
-import { requestOrderById } from '../services/requests';
-
-const shopCart = {
-  id: 1,
-  sellerName: 'tiazinha',
-  totalPrice: '10',
-  deliveryAddress: 'Rua dos bobos',
-  deliveryNumber: '369',
-  status: 'Entregue',
-  saleDate: '1994-06-21T00:00:00.000Z',
-  products: [
-    { id: 1, name: 'skol', price: 5.00, quantity: 8 },
-    { id: 2, name: 'coca', price: 4.00, quantity: 2 },
-    { id: 3, name: 'fanta', price: 2.00, quantity: 1 },
-  ],
-};
+import { requestChangeStatusOrder, requestOrderById } from '../services/requests';
 
 export default function OrderDetails() {
   const [user, setUser] = useState('');
@@ -38,6 +23,12 @@ export default function OrderDetails() {
     }
   };
 
+  const changeStatusOrder = async () => {
+    await requestChangeStatusOrder(url[3], 'Entregue');
+    const newOrders = { ...order, status: 'Entregue' };
+    setOrder(newOrders);
+  };
+
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
     if (data === null) {
@@ -47,7 +38,7 @@ export default function OrderDetails() {
   };
 
   const sumCartTotal = () => {
-    const sum = shopCart.products.reduce(
+    const sum = order.products.reduce(
       (acc, curr) => acc + curr.quantity * curr.price,
       0,
     );
@@ -60,10 +51,10 @@ export default function OrderDetails() {
     setLoading(false);
   }, []);
 
-  if (loading) {
+  if (loading || !order.id) {
     return <Loading />;
   }
-
+  console.log(order);
   return (
     <div>
       <Header { ...user } />
@@ -71,9 +62,10 @@ export default function OrderDetails() {
         <h3>Detalhe do Pedido</h3>
         <ClientOrderLabel
           order={ order }
+          changeStatusOrder={ changeStatusOrder }
         />
         <OrderTable
-          productOrders={ shopCart.products }
+          productOrders={ order.products }
           page="customer_order_details"
         />
         <h1>

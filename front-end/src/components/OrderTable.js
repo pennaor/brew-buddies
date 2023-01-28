@@ -47,7 +47,6 @@ export default function OrderTable({ productOrders, removeItem, page }) {
                 }
               >
                 {(itemCart.price)
-                  .toFixed(2)
                   .toString()
                   .replace('.', ',')}
               </span>

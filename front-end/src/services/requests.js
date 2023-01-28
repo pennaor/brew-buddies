@@ -43,4 +43,8 @@ export const requestOrdersByClient = async (id) => {
   return data;
 };
 
+export const requestChangeStatusOrder = async (id, status) => {
+  await api.put(`/orders/${id}`, { status });
+};
+
 export default api;

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 
-export default function ClientOrderLabel({ order }) {
+export default function ClientOrderLabel({ order, changeStatusOrder }) {
   const formatedDate = dayjs(order.saleDate).format('DD/MM/YYYY');
   return (
     <div>
@@ -29,14 +29,15 @@ export default function ClientOrderLabel({ order }) {
         {formatedDate}
       </p>
       <p
-        data-testid="customer_order_details
-        __element-order-details-label-delivery-status<index>"
+        data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
         {order.status}
       </p>
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
+        onClick={ () => changeStatusOrder() }
+        disabled={ order.status !== 'Em Trânsito' }
       >
         MARCAR COMO ENTREGUE
       </button>
@@ -46,4 +47,5 @@ export default function ClientOrderLabel({ order }) {
 
 ClientOrderLabel.propTypes = {
   order: PropTypes.objectOf(PropTypes.any.isRequired).isRequired,
+  changeStatusOrder: PropTypes.func.isRequired,
 };
