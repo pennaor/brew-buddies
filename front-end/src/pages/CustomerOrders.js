@@ -46,7 +46,7 @@ export default function CustomerOrders() {
         <OrderCard
           key={ order.id }
           order={ order }
-          page="customer_products"
+          page="customer_orders"
         />
       ))}
     </div>
