@@ -4,7 +4,7 @@ const StringEmpty = 'Invalid Fields';
 const InvalidFields = 'Some required fields are missing';
 const anyRequired = 'is required';
 
-const positiveInteger = Joi.number().integer().min(1);
+const positiveIntegerSchema = Joi.number().integer().min(1);
 
 const loginSchema = Joi.object({
   email: Joi.string().required().email().messages({
@@ -35,15 +35,15 @@ const registerSchema = Joi.object({
 });
 
 const productSchema = Joi.object({
-  productId: positiveInteger.required().label('productId'),
-  quantity: positiveInteger.required().label('quantity'),
+  productId: positiveIntegerSchema.required().label('productId'),
+  quantity: positiveIntegerSchema.required().label('quantity'),
 });
 
 const productArraySchema = Joi.array().items(productSchema).min(1).required()
   .label('products');
 
 const saleSchema = Joi.object({
-  sellerId: positiveInteger.required().label('sellerId').messages({
+  sellerId: positiveIntegerSchema.required().label('sellerId').messages({
   anyRequired: `sellerName ${anyRequired}`,
   }),
 
@@ -63,13 +63,13 @@ const saleSchema = Joi.object({
 const saleStatusSchema = Joi.valid('Em Trânsito', 'Pendente', 'Preparando', 'Entregue');
 
 const updateSaleStatusSchema = Joi.object({
-  saleId: positiveInteger.label('saleId').required(),
+  saleId: positiveIntegerSchema.label('saleId').required(),
   status: saleStatusSchema.required(),
 });
 
 const roleStatusSchema = Joi.valid('administrator', 'seller', 'customer');
 
-const adminRegister = registerSchema.append({ role: roleStatusSchema.required() });
+const adminRegisterSchema = registerSchema.append({ role: roleStatusSchema.required() });
 
 module.exports = {
   loginSchema,
@@ -78,7 +78,7 @@ module.exports = {
   productSchema,
   productArraySchema,
   saleStatusSchema,
-  positiveInteger,
+  positiveIntegerSchema,
   updateSaleStatusSchema,
-  adminRegister,
+  adminRegisterSchema,
 };
