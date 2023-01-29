@@ -1,10 +1,11 @@
 const { Router } = require('express');
-const { register } = require('../controllers/admin.controller');
-const authenticateUser = require('../middlewares/authenticateUser');
+const { register, getAllUsers, deleteUser } = require('../controllers/admin.controller');
 const authorizeUser = require('../middlewares/authorizeUser');
 
 const adminRouter = Router();
 
-adminRouter.post('/register', authenticateUser, authorizeUser, register);
+adminRouter.delete('/users/:id', authorizeUser, deleteUser);
+adminRouter.get('/users', authorizeUser, getAllUsers);
+adminRouter.post('/register', authorizeUser, register);
 
 module.exports = adminRouter;

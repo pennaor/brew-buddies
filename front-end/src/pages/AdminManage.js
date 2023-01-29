@@ -10,14 +10,14 @@ import {
   setToken,
 } from '../services/requests';
 
-const mockUsers = [
-  { id: 1,
-    name: 'Delivery App Admin',
-    email: 'adm@deliveryapp.com',
-    role: 'administrator' },
-  { id: 2, name: 'Fulana Pereira', email: 'fulana@deliveryapp.com', role: 'seller' },
-  { id: 3, name: 'Cliente Zé Birita', email: 'zebirita@email.com', role: 'customer' },
-];
+// const mockUsers = [
+//   { id: 1,
+//     name: 'Delivery App Admin',
+//     email: 'adm@deliveryapp.com',
+//     role: 'administrator' },
+//   { id: 2, name: 'Fulana Pereira', email: 'fulana@deliveryapp.com', role: 'seller' },
+//   { id: 3, name: 'Cliente Zé Birita', email: 'zebirita@email.com', role: 'customer' },
+// ];
 
 export default function AdminManage() {
   const [user, setUser] = useState('');
@@ -35,9 +35,9 @@ export default function AdminManage() {
 
   const fetchUsers = async () => {
     try {
-      const response = await requestAllUsers();
-      console.log(response);
-      const filteredUser = mockUsers.filter(
+      setToken(user.token);
+      const users = await requestAllUsers();
+      const filteredUser = users.filter(
         (userResponse) => userResponse.id !== user.id,
       );
       setRegisteredUsers(filteredUser);
@@ -78,8 +78,10 @@ export default function AdminManage() {
   }, []);
 
   useEffect(() => {
-    fetchUsers();
-    setLoading(false);
+    if (user.id) {
+      fetchUsers();
+      setLoading(false);
+    }
   }, [user]);
 
   if (loading) {

@@ -2,10 +2,10 @@ const md5 = require('md5');
 const { Op } = require('sequelize');
 const HttpException = require('../exceptions/HttpException');
 const { User } = require('../database/models');
-const { adminRegister } = require('../joi/schemas');
+const { adminRegisterSchema, positiveIntegerSchema } = require('../joi/schemas');
 
 const register = async (body) => {
-  const { error } = adminRegister.validate(body);
+  const { error } = adminRegisterSchema.validate(body);
   if (error) {
     throw new HttpException(400, error.message);
   }
@@ -26,4 +26,14 @@ const register = async (body) => {
   return user;
 };
 
-module.exports = { register };
+const getAllUsers = async () => User.findAll({ attributes: { exclude: ['password'] } });
+
+const deleteUser = async (id) => {
+  const { error } = positiveIntegerSchema.label('id').validate(id);
+  if (error) {
+    throw new HttpException(400, error.message);
+  }
+  return User.destroy({ where: { id } });
+};
+
+module.exports = { register, getAllUsers, deleteUser };
