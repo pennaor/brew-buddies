@@ -78,9 +78,10 @@ export default function AdminManage() {
   }, []);
 
   useEffect(() => {
-    if (!user) return;
-    fetchUsers();
-    setLoading(false);
+    if (user.id) {
+      fetchUsers();
+      setLoading(false);
+    }
   }, [user]);
 
   if (loading) {
