@@ -57,7 +57,7 @@ export default function CustomerCheckout() {
       deliveryNumber,
       products,
     };
-    console.log(body);
+
     try {
       setToken(user.token);
       const { saleId } = await requestCreateOrder(body);

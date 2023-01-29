@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHref } from 'react-router-dom';
-import ClientOrderLabel from '../components/ClientOrderLabel';
+import CustomerOrderLabel from '../components/CustomerOrderLabel';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import OrderTable from '../components/OrderTable';
@@ -48,10 +48,15 @@ export default function CustomerOrderDetails() {
   useEffect(() => {
     setUser(getStorageData('user'));
     fetchOrder(url[3]);
-    setLoading(false);
   }, []);
 
-  if (loading || !order.id) {
+  useEffect(() => {
+    if (order.id) {
+      setLoading(false);
+    }
+  }, [order]);
+
+  if (loading) {
     return <Loading />;
   }
 
@@ -60,7 +65,7 @@ export default function CustomerOrderDetails() {
       <Header { ...user } />
       <div>
         <h3>Detalhe do Pedido</h3>
-        <ClientOrderLabel
+        <CustomerOrderLabel
           order={ order }
           changeStatusOrder={ changeStatusOrder }
         />

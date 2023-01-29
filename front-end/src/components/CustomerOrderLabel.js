@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 
-export default function ClientOrderLabel({ order, changeStatusOrder }) {
+export default function CustomerOrderLabel({ order, changeStatusOrder }) {
   const formatedDate = dayjs(order.saleDate).format('DD/MM/YYYY');
   return (
     <div>
@@ -29,7 +29,7 @@ export default function ClientOrderLabel({ order, changeStatusOrder }) {
         {formatedDate}
       </p>
       <p
-        data-testid="customer_order_details__element-order-details-label-delivery-status"
+        data-testid="customer_order_details__element-order-details-label-delivery-status-"
       >
         {order.status}
       </p>
@@ -45,7 +45,7 @@ export default function ClientOrderLabel({ order, changeStatusOrder }) {
   );
 }
 
-ClientOrderLabel.propTypes = {
+CustomerOrderLabel.propTypes = {
   order: PropTypes.objectOf(PropTypes.any.isRequired).isRequired,
   changeStatusOrder: PropTypes.func.isRequired,
 };
