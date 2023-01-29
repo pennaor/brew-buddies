@@ -29,7 +29,14 @@ module.exports = {
           email: 'zebiritajr@email.com',
           password: '1c37466c159755ce1fa181bd247cb925',
           role: 'customer'
-        }
+        },
+        {
+          id: 5,
+          name: 'Aluisio Mercadante',
+          email: 'aluisio@gmail.com',
+          password: '25f9e794323b453885f5181f1b624d0b', // 123456789
+          role: 'seller'
+        },
       ], { timestamps: false });
   },
   down: async (queryInterface, _Sequelize) => {
