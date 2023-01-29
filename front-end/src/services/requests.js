@@ -53,10 +53,8 @@ export const requestChangeStatusOrder = async (id, status) => {
 };
 
 export const requestAllUsers = async () => {
-  // const { data } = await api.get();
-  console.log('');
-  return ('chamou requestAllUsers');
-  // return data;
+  const { data } = await api.get('/admin/manage/users');
+  return data;
 };
 
 export const requestCreateUser = async (body) => {
@@ -65,9 +63,7 @@ export const requestCreateUser = async (body) => {
 };
 
 export const requestDeleteUser = async (id) => {
-  // const { data } = await api.delete();
-  console.log(id);
-  // return data;
+  await api.delete(`/admin/manage/users/${id}`);
 };
 
 export default api;

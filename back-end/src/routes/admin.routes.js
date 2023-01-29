@@ -4,8 +4,8 @@ const authorizeUser = require('../middlewares/authorizeUser');
 
 const adminRouter = Router();
 
-adminRouter.post('/register', authorizeUser, register);
-adminRouter.get('/users', authorizeUser, getAllUsers);
 adminRouter.delete('/users/:id', authorizeUser, deleteUser);
+adminRouter.get('/users', authorizeUser, getAllUsers);
+adminRouter.post('/register', authorizeUser, register);
 
 module.exports = adminRouter;
