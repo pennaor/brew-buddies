@@ -40,7 +40,7 @@ export default function SellerOrders() {
   if (loading) {
     return <Loading />;
   }
-  console.log(orders);
+
   return (
     <div>
       <Header { ...user } />

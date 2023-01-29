@@ -52,9 +52,22 @@ export const requestChangeStatusOrder = async (id, status) => {
   await api.put(`/orders/${id}`, { status });
 };
 
+export const requestAllUsers = async () => {
+  // const { data } = await api.get();
+  console.log('');
+  return ('chamou requestAllUsers');
+  // return data;
+};
+
 export const requestCreateUser = async (body) => {
   const { data } = await api.post('/admin/manage/register', body);
   return data;
+};
+
+export const requestDeleteUser = async (id) => {
+  // const { data } = await api.delete();
+  console.log(id);
+  // return data;
 };
 
 export default api;

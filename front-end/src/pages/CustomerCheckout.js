@@ -78,7 +78,6 @@ export default function CustomerCheckout() {
   if (loading) {
     return <Loading />;
   }
-  console.log(sellerId);
   return (
     <div>
       <Header { ...user } />

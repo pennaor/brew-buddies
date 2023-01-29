@@ -51,7 +51,6 @@ export default function Login() {
   }, []);
 
   if (user.name) {
-    console.log(user.role);
     if (user.role === 'customer') {
       return (<Navigate to="/customer/products" />);
     }

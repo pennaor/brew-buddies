@@ -54,7 +54,7 @@ export default function CustomerOrderDetails() {
   if (loading || !order.id) {
     return <Loading />;
   }
-  console.log(order);
+
   return (
     <div>
       <Header { ...user } />
