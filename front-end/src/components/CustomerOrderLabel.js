@@ -20,7 +20,7 @@ export default function CustomerOrderLabel({ order, changeStatusOrder }) {
         <span
           data-testid="customer_order_details__element-order-details-label-seller-name"
         >
-          Fulana Pereira
+          {order.sellerName}
         </span>
       </p>
       <p
