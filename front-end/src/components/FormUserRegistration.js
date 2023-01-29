@@ -18,7 +18,7 @@ export default function FormUserRegistration({ createUser }) {
   };
 
   return (
-    <form onSubmit={ console.log('teste') }>
+    <form>
       <label htmlFor="name">
         <p>Nome</p>
         <input

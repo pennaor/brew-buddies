@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react';
 import FormUserRegistration from '../components/FormUserRegistration';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import { requestCreateUser, setToken } from '../services/requests';
+import UsersTable from '../components/UsersTable';
+import {
+  requestAllUsers,
+  requestCreateUser,
+  requestDeleteUser,
+  setToken,
+} from '../services/requests';
 
 const mockUsers = [
   { id: 1,
@@ -29,8 +35,12 @@ export default function AdminManage() {
 
   const fetchUsers = async () => {
     try {
-      // const response = await requestAllUsers(id);
-      setRegisteredUsers(mockUsers);
+      const response = await requestAllUsers();
+      console.log(response);
+      const filteredUser = mockUsers.filter(
+        (userResponse) => userResponse.id !== user.id,
+      );
+      setRegisteredUsers(filteredUser);
     } catch (error) {
       console.log(error);
       setfetchError(error);
@@ -49,11 +59,28 @@ export default function AdminManage() {
     }
   };
 
+  const deleteUser = async (id) => {
+    try {
+      setToken(user.token);
+      await requestDeleteUser(id);
+      const restOfUsers = registeredUsers.filter(
+        (registredUser) => registredUser.id !== id,
+      );
+      setRegisteredUsers(restOfUsers);
+    } catch (error) {
+      console.log(error);
+      setfetchError(error.message);
+    }
+  };
+
   useEffect(() => {
     setUser(getStorageData('user'));
+  }, []);
+
+  useEffect(() => {
     fetchUsers();
     setLoading(false);
-  }, []);
+  }, [user]);
 
   if (loading) {
     return <Loading />;
@@ -67,7 +94,7 @@ export default function AdminManage() {
           <h2>Cadastrar novo usuário</h2>
           {
             fetchError && (
-              <p data-testid="admin_manage__element-invalid-email">
+              <p data-testid="admin_manage__element-invalid-register">
                 {fetchError}
               </p>)
           }
@@ -76,6 +103,13 @@ export default function AdminManage() {
               createUser={ createUser }
             />
           </div>
+        </div>
+        <div>
+          <h2>Lista de usuários</h2>
+          <UsersTable
+            users={ registeredUsers }
+            deleteUser={ deleteUser }
+          />
         </div>
       </div>
     </div>
