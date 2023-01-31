@@ -17,6 +17,7 @@ export default function CustomerOrderDetails() {
   const fetchOrder = async (id) => {
     try {
       const response = await requestOrderById(id);
+      console.log('requestOrderById', response);
       setOrder(response);
     } catch (error) {
       console.log(error);

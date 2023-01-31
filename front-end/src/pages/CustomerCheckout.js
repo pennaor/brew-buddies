@@ -19,6 +19,7 @@ export default function CustomerCheckout() {
   const fetchSellers = async () => {
     try {
       const response = await requestAllSellers();
+      console.log('requestallSellers', response);
       setSellerId(response[0].id);
       setSellersAvaible(response);
     } catch (error) {
@@ -28,8 +29,9 @@ export default function CustomerCheckout() {
 
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
+    console.log('storage shopCart', data);
     if (data === null) {
-      return [];
+      return navigate('/login');
     }
     return data;
   };
@@ -61,10 +63,11 @@ export default function CustomerCheckout() {
     try {
       setToken(user.token);
       const { saleId } = await requestCreateOrder(body);
+      console.log('requestCreateOrder', saleId);
       localStorage.removeItem('shopCart');
       navigate(`/customer/orders/${saleId}`);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

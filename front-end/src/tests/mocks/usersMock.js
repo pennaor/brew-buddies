@@ -18,9 +18,24 @@ export const inputCustomerMock = {
 };
 
 export const outputCustomerMock = {
-  id: 2,
+  id: 3,
   name: 'Cliente Zé Birita',
   email: 'zebirita@email.com',
   token: 'customer token',
   role: 'customer',
 };
+
+export const outputAllSellersMock = [
+  {
+    id: 2,
+    name: 'Fulana Pereira',
+    email: 'fulana@deliveryapp.com',
+    role: 'seller',
+  },
+  {
+    id: 6,
+    name: 'Fulano Almeida',
+    email: 'almeida@deliveryapp.com',
+    role: 'seller',
+  },
+];
