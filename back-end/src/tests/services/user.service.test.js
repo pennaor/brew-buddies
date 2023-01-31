@@ -2,61 +2,99 @@ const { expect } = require('chai');
 const { describe } = require('mocha');
 const { Model } = require('sequelize');
 const Sinon = require('sinon');
+const HttpException = require('../../exceptions/HttpException');
 
 const userService = require('../../services/user.service');
 const jwt = require('../../utils/jwt.utils');
-const validUser = require('../mocks/user.test.mock');
+const { userToken, userWithToken, validUser, newUser, invalidUser, user} = require('../mocks/user.test.mock');
 
-describe.skip('Teste User Service', () => {
-  it('Login com usuário válido', async () => {
+describe('Teste User Service', () => {
 
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjc0NTgyNzYxLCJleHAiOjE2NzUxODc1NjF9.jojn3xl_Y8tEJjPKU2uwEpNCc1H1YlGPj_44ixQvn_A"
-    
-    Sinon.stub(Model, 'findOne').resolves(validUser);
-    Sinon.stub(jwt, 'generateToken').returns(token);
-
-    const result = await userService.getUser("adm@deliveryapp.com", '--adm2@21!!--');
-
-    expect(result).to.deep.equal({
-      "user": {
-      "id": 1,
-      "name": "Delivery App Admin",
-      "email": "adm@deliveryapp.com",
-      "role": "administrator"
-    },
-    "token": token
+  beforeEach(function () {
+    Sinon.stub(jwt, 'generateToken').returns(userToken);
   });
-  })
+
+  it('Login com usuário válido', async () => {
+    Sinon.stub(Model, 'findOne').resolves(validUser);
+
+    const result = await userService.authenticate("adm@deliveryapp.com", '--adm2@21!!--');
+
+    expect(result).to.deep.equal(userWithToken);
+  });
 
   it('Deve apresentar um erro com email inválido', async () => {
-    const invalidEmail = 'Invalid fields';
+    Sinon.stub(Model, 'findOne').resolves(validUser);
 
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjc0NTgyNzYxLCJleHAiOjE2NzUxODc1NjF9.jojn3xl_Y8tEJjPKU2uwEpNCc1H1YlGPj_44ixQvn_A"
-
-      Sinon.stub(Model, 'findOne').resolves(validUser);
-      Sinon.stub(jwt, 'generateToken').returns(token);
-      try {
-        await userService.getUser("adm@deliveryapp.com", '--adm2@21!!--');
-      } catch (error) {
-        expect(error.message).to.be.equal(invalidEmail);
-      }
-  })
+    await userService.authenticate("adm@", '--adm2@21!!--')
+      .then(
+        (result) => expect(result).to.not.be.ok,
+        (error) => {
+          expect(error).to.be.instanceof(HttpException);
+          expect(error.status).to.be.equal(400);
+        },
+      );
+  });
 
   it('Deve apresentar um erro com senha inválida', async () => {
-    const invalidPassword = 'Invalid password'; 
+    Sinon.stub(Model, 'findOne').resolves(null);
 
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjc0NTgyNzYxLCJleHAiOjE2NzUxODc1NjF9.jojn3xl_Y8tEJjPKU2uwEpNCc1H1YlGPj_44ixQvn_A"
-    
-    Sinon.stub(Model, 'findOne').resolves(validUser);
-    Sinon.stub(jwt, 'generateToken').returns(token);
+    await userService.authenticate("adm@deliveryapp.com", 'senhainvalida')
+    .then(
+      (result) => expect(result).to.not.be.ok,
+      (error) => {
+        expect(error).to.be.instanceof(HttpException);
+        expect(error.status).to.be.equal(404);
+        expect(error.message).to.be.equal('User not found');
+      },
+    );
+  });
 
-    let err = new Error('Invalid password');
-    try {
-      await userService.getUser("adm@deliveryapp.com", "invalidPassword")
-    } catch (error) {
-      err = error;
-    }
-    expect(err.message).to.be.equal(invalidPassword);
+  it("Verifica se é possível cadastrar um novo usuário", async () => {
+    const { email, name, password } = newUser;
+    Sinon.stub(Model, "findOne").resolves(null);
+    const stub = Sinon.stub(Model, "create").resolves(validUser);
+
+    const result = await userService.register(name, email, password);
+
+    expect(stub.calledOnce).to.be.true;
+
+    expect(result.id).to.equal(validUser.id);
+    expect(result.name).to.equal(validUser.name);
+    expect(result.email).to.equal(validUser.email);
+    expect(result.role).to.equal(validUser.role);
+  });
+
+  it("Verifica se é possível cadastrar um novo usuário com e-mail inválido", async () => {
+    const { name, password } = newUser;
+    const { email } = invalidUser;
+    Sinon.stub(Model, "findOne").resolves(null);
+    Sinon.stub(Model, "create").resolves(validUser);
+
+    await userService.register(name, email, password)
+      .then(
+        (result) => expect(result).not.be.ok,
+        (error) => {
+          expect(error).to.be.instanceof(HttpException);
+          expect(error.status).to.be.equal(400);
+          expect(error.message).to.be.equal('"email" must be a valid email');
+        },
+      );
+  });
+
+  it("Verifica se ao tentar registrar usuário existente é lançado um erro", async () => {
+    const { email, name, password } = newUser;
+    Sinon.stub(Model, "findOne").resolves({});
+    Sinon.stub(Model, "create").resolves(validUser);
+
+    await userService.register(name, email, password)
+      .then(
+        (result) => expect(result).not.be.ok,
+        (error) => {
+          expect(error).to.be.instanceof(HttpException);
+          expect(error.status).to.be.equal(409);
+          expect(error.message).to.be.equal('User already registered');
+        },
+      );
   });
 
   afterEach(Sinon.restore);
