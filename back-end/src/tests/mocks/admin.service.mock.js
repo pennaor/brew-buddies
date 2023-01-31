@@ -34,4 +34,18 @@ const users = [
   },
 ];
 
-module.exports = { createdUser, newUser, users };
+const delUser = {
+  id: 1,
+  name: "Delivery App Admin",
+  email: "adm@deliveryapp.com",
+  role: "administrator",
+};
+
+const invalidUser = {
+  id: 1,
+  name: "Cliente Cliente Cliente",
+  email: "a@a",
+  role: "customer",
+};
+
+module.exports = { createdUser, newUser, users, delUser, invalidUser };
