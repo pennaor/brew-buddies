@@ -7,9 +7,9 @@ const productsQuantities = [
 ];
 
 const saleIdProductsQuantities = [
-  { saleId: saleId, ...productsQuantities[0] },
-  { saleId: saleId, ...productsQuantities[1] },
-  { saleId: saleId, ...productsQuantities[2] },
+  { saleId, ...productsQuantities[0] },
+  { saleId, ...productsQuantities[1] },
+  { saleId, ...productsQuantities[2] },
 ];
 
 const invalidProductsQuantities = [
