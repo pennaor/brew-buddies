@@ -33,7 +33,10 @@ describe('Verificação de funcionalidades do serviço saleProduct', function ()
     await saleProductService.create(saleId, invalidProductsQuantities)
       .then(
         (result) => expect(result).not.be.ok,
-        (result) => expect(result).to.be.instanceof(HttpException),
+        (error) => {
+          expect(error).to.be.instanceof(HttpException);
+          expect(error.status).to.be.equal(400);
+        },
       );
   });
 
