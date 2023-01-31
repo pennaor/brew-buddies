@@ -21,20 +21,14 @@ export default function Register() {
   };
 
   const handleRegister = async () => {
-    console.log('CLICCCOOOOU');
-
     try {
       const response = await requestRegister({ email, password, name });
-      console.log('response pooooooo', response);
       localStorage.setItem('user', JSON.stringify(response));
       navigate('/customer/products');
     } catch (error) {
-      console.log(error.message);
       setRegisterError(error.message);
     }
   };
-
-  console.log('ME CHAMOUUUUUUUUUUUUUUUUUUUUUUUUU');
 
   return (
     <main>
