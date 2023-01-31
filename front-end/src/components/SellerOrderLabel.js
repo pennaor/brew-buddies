@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 
 export default function SellerOrderLabel({ order, changeStatusOrder }) {
   const formatedDate = dayjs(order.saleDate).format('DD/MM/YYYY');
-  console.log('seller', order.status);
   return (
     <div>
       <p>
