@@ -14,7 +14,8 @@ const seller = [
   },
 ];
 
-const sellerSale = [
+
+const sellerSales = [
     {
       "id": 1,
       "userId": 3,
@@ -37,4 +38,4 @@ const sellerSale = [
     },
 ];
 
-module.exports = { seller, sellerSale };
+module.exports = { seller, sellerSales };
