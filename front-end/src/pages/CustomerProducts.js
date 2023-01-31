@@ -16,6 +16,7 @@ export default function CustomerProducts() {
   const fetchProducts = async () => {
     try {
       const response = await requestProducts();
+      console.log(response, 'RESPONSEEE PRODUCTS');
       setProducts(response);
     } catch (error) {
       console.log(error);
@@ -109,7 +110,7 @@ export default function CustomerProducts() {
   if (loading) {
     return <Loading />;
   }
-
+  console.log('Chamou products');
   return (
     <div>
       <Header { ...user } />
