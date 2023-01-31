@@ -2,10 +2,9 @@ const { expect } = require("chai");
 const { describe } = require("mocha");
 const { Model } = require("sequelize");
 const Sinon = require("sinon");
+
 const HttpException = require('../../exceptions/HttpException');
-
 const adminService = require("../../services/admin.service");
-
 const { createdUser, newUser, users, delUser, invalidUser } = require("../mocks/admin.service.mock");
 
 describe("Teste Admin Service", () => {
@@ -77,7 +76,7 @@ describe("Teste Admin Service", () => {
         },
       );
   });
-
+ 
   afterEach(Sinon.restore);
 });
 

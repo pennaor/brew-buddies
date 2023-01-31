@@ -14,6 +14,7 @@ const seller = [
   },
 ];
 
+
 const sellerSales = [
     {
       "id": 1,

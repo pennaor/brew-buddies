@@ -2,8 +2,8 @@ const { expect } = require("chai");
 const { describe } = require("mocha");
 const { Model } = require("sequelize");
 const Sinon = require("sinon");
-const HttpException = require('../../exceptions/HttpException');
 
+const HttpException = require('../../exceptions/HttpException');
 const sellerService = require("../../services/seller.service");
 const { seller, sellerSales } = require("../mocks/seller.service.mock");
 
@@ -42,6 +42,6 @@ describe("Teste Seller Service", () => {
         },
       );
   });
-
+ 
   afterEach(Sinon.restore);
 });
