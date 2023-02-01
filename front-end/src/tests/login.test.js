@@ -12,7 +12,7 @@ import {
   outputAdminMock,
   allUsers,
 } from './mocks/usersMock';
-import { ordersMock } from './mocks/ordersMock';
+import { sellerOrdersMock } from './mocks/ordersMock';
 import { allProductsMock } from './mocks/productsMock';
 import {
   requestLogin,
@@ -116,7 +116,7 @@ describe('Testando a página de Login', () => {
         () => Promise.resolve(outputSellerMock),
       );
       requestOrdersBySeller.mockImplementation(
-        () => Promise.resolve(ordersMock),
+        () => Promise.resolve(sellerOrdersMock),
       );
       const { user } = renderWithRouter(<App />, { route: '/login' });
       const email = screen.getByTestId(idEmail);
@@ -207,7 +207,7 @@ describe('Testando a página de Login', () => {
         () => Promise.resolve(outputSellerMock),
       );
       requestAllUsers.mockImplementation(
-        () => Promise.resolve(ordersMock),
+        () => Promise.resolve(sellerOrdersMock),
       );
       renderWithRouter(<App />, { route: '/login' });
       await waitFor(() => {

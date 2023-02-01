@@ -31,7 +31,7 @@ export const orderByIdMock = {
   userId: 3,
 };
 
-export const ordersMock = [
+export const sellerOrdersMock = [
   {
     deliveryAddress: 'Rua oliveira',
     deliveryNumber: '456',
@@ -43,5 +43,3 @@ export const ordersMock = [
     userId: 3,
   },
 ];
-
-export default orderMock;
