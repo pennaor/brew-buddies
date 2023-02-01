@@ -155,10 +155,7 @@ describe('Testando a página de customerCheckout', () => {
       const spy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
       await user.click(finishOrderButton);
-
-      await waitFor(() => {
-        expect(spy).toHaveBeenCalledWith('Invalid create');
-      });
+      expect(spy).toHaveBeenCalledWith('Invalid create');
     },
   );
 });
