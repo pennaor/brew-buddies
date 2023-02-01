@@ -4,7 +4,7 @@ import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import { outputAllSellersMock, outputCustomerMock } from './mocks/usersMock';
 import { shopCartMock } from './mocks/productsMock';
-import { orderMock } from './mocks/ordersMock';
+import { orderByIdMock } from './mocks/ordersMock';
 
 import {
   requestAllSellers,
@@ -83,7 +83,7 @@ describe('Testando a página de customerCheckout', () => {
       );
 
       requestOrderById.mockImplementation(
-        () => Promise.resolve(orderMock),
+        () => Promise.resolve(orderByIdMock),
       );
 
       const { user } = renderWithRouter(<App />, { route });

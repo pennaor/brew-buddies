@@ -3,6 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import {
+  inputRegisterMock,
   inputCustomerMock,
   outputCustomerMock,
   inputSellerMock,
@@ -10,9 +11,8 @@ import {
   inputAdminMock,
   outputAdminMock,
   allUsers,
-  orders,
-  inputRegisterMock,
 } from './mocks/usersMock';
+import { ordersMock } from './mocks/ordersMock';
 import { allProductsMock } from './mocks/productsMock';
 import {
   requestLogin,
@@ -116,7 +116,7 @@ describe('Testando a página de Login', () => {
         () => Promise.resolve(outputSellerMock),
       );
       requestOrdersBySeller.mockImplementation(
-        () => Promise.resolve(orders),
+        () => Promise.resolve(ordersMock),
       );
       const { user } = renderWithRouter(<App />, { route: '/login' });
       const email = screen.getByTestId(idEmail);
@@ -207,7 +207,7 @@ describe('Testando a página de Login', () => {
         () => Promise.resolve(outputSellerMock),
       );
       requestAllUsers.mockImplementation(
-        () => Promise.resolve(orders),
+        () => Promise.resolve(ordersMock),
       );
       renderWithRouter(<App />, { route: '/login' });
       await waitFor(() => {

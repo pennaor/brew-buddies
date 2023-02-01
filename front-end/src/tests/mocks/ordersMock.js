@@ -1,4 +1,4 @@
-export const orderMock = {
+export const orderByIdMock = {
   deliveryAddress: 'Rua das maças, centro',
   deliveryNumber: '580',
   id: 3,
@@ -30,5 +30,18 @@ export const orderMock = {
   totalPrice: '48.01',
   userId: 3,
 };
+
+export const ordersMock = [
+  {
+    deliveryAddress: 'Rua oliveira',
+    deliveryNumber: '456',
+    id: 1,
+    saleDate: '2023-01-31T22:16:46.000Z',
+    sellerId: 2,
+    status: 'Pendente',
+    totalPrice: '12.19',
+    userId: 3,
+  },
+];
 
 export default orderMock;
