@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHref } from 'react-router-dom';
+import { useHref, useNavigate } from 'react-router-dom';
 import CustomerOrderLabel from '../components/CustomerOrderLabel';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -13,26 +13,31 @@ export default function CustomerOrderDetails() {
 
   const history = useHref();
   const url = history.split('/');
+  const navigate = useNavigate();
 
   const fetchOrder = async (id) => {
     try {
       const response = await requestOrderById(id);
       setOrder(response);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
   const changeStatusOrder = async () => {
-    await requestChangeStatusOrder(url[3], 'Entregue');
-    const newOrders = { ...order, status: 'Entregue' };
-    setOrder(newOrders);
+    try {
+      await requestChangeStatusOrder(url[3], 'Entregue');
+      const newOrders = { ...order, status: 'Entregue' };
+      setOrder(newOrders);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
     if (data === null) {
-      return [];
+      return navigate('/login');
     }
     return data;
   };
