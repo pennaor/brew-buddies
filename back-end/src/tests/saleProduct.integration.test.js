@@ -4,11 +4,11 @@ const { describe } = require('mocha');
 const Sinon = require('sinon');
 const chaiHttp = require('chai-http');
 const { Model } = require('sequelize');
-const app = require('../../api/app');
-const { validRequest } = require('../mocks/saleProduct.controller.mock');
-const { saleIdProductsQuantities } = require('../mocks/saleProduct.service.mock');
-const { user } = require('../mocks/user.test.mock');
-const jwtUtils = require('../../utils/jwt.utils');
+const app = require('../api/app');
+const { validRequest } = require('./mocks/saleProduct.controller.mock');
+const { saleIdProductsQuantities } = require('./mocks/saleProduct.service.mock');
+const { user } = require('./mocks/user.test.mock');
+const jwtUtils = require('../utils/jwt.utils');
 
 chai.use(chaiHttp);
 

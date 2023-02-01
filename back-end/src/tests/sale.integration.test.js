@@ -4,9 +4,9 @@ const { describe } = require('mocha');
 const Sinon = require('sinon');
 const chaiHttp = require('chai-http');
 const { Model } = require('sequelize');
-const app = require('../../api/app');
-const { sellerSales } = require('../mocks/seller.service.mock');
-const { saleSellerProducts, normalizedSaleSellerProducts } = require('../mocks/sale.service.mock');
+const app = require('../api/app');
+const { sellerSales } = require('./mocks/seller.service.mock');
+const { saleSellerProducts, normalizedSaleSellerProducts } = require('./mocks/sale.service.mock');
 
 chai.use(chaiHttp);
 
