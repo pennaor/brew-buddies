@@ -6,6 +6,7 @@ const { adminRegisterSchema, positiveIntegerSchema } = require('../joi/schemas')
 
 const register = async (body) => {
   const { error } = adminRegisterSchema.validate(body);
+  console.log(error);
   if (error) {
     throw new HttpException(400, error.message);
   }

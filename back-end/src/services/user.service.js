@@ -42,12 +42,4 @@ const register = async (name, email, password) => {
   return user;
 };
 
-const getByName = async (name) => {
-  const user = await User.findOne({ where: { name } });
-  if (!user) {
-    throw new HttpException(404, 'User not found');
-  }
-  return user;
-};
-
-module.exports = { authenticate, getByName, register };
+module.exports = { authenticate, register };
