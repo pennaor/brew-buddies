@@ -17,6 +17,7 @@ export default function SellerOrderDetails() {
   const fetchOrder = async (id) => {
     try {
       const response = await requestOrderById(id);
+      console.log(response);
       setOrder(response);
     } catch (error) {
       console.log(error);
