@@ -1,3 +1,5 @@
+const sellerFulanaEmail = 'fulana@deliveryapp.com';
+
 export const inputRegisterMock = {
   name: 'Marquinhos Gameplay',
   email: 'Mgameplay@bol.com',
@@ -25,11 +27,51 @@ export const outputCustomerMock = {
   role: 'customer',
 };
 
+export const inputSellerMock = {
+  email: sellerFulanaEmail,
+  password: 'fulana@123',
+};
+
+export const outputSellerMock = {
+  id: 3,
+  name: 'Fulana Pereira',
+  email: sellerFulanaEmail,
+  token: 'seller token',
+  role: 'seller',
+};
+
+export const outputAdminMock = {
+  id: 1,
+  name: 'Delivery App Admin',
+  email: 'adm@deliveryapp.com',
+  role: 'administrator',
+};
+
+export const inputAdminMock = {
+  email: 'adm@deliveryapp.com',
+  password: '--adm2@21!!--',
+};
+
+export const allUsers = [
+  {
+    email: 'zebiritajr@email.com',
+    id: 4,
+    name: 'Zé Birita Jr',
+    role: 'customer',
+  },
+  {
+    email: 'aluisio@gmail.com',
+    id: 5,
+    name: 'Aluisio Mercadante',
+    role: 'seller',
+  },
+];
+
 export const outputAllSellersMock = [
   {
     id: 2,
     name: 'Fulana Pereira',
-    email: 'fulana@deliveryapp.com',
+    email: sellerFulanaEmail,
     role: 'seller',
   },
   {
