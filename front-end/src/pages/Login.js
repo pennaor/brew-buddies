@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { requestLogin } from '../services/requests';
 
 export default function Login() {
@@ -52,15 +52,15 @@ export default function Login() {
 
   if (user.name) {
     if (user.role === 'customer') {
-      return (<Navigate to="/customer/products" />);
+      navigate('/customer/products');
     }
 
     if (user.role === 'seller') {
-      return (<Navigate to="/seller/orders" />);
+      navigate('/seller/orders');
     }
 
     if (user.role === 'administrator') {
-      return (<Navigate to="/admin/manage" />);
+      navigate('/admin/manage');
     }
   }
 
