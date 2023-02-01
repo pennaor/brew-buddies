@@ -37,6 +37,7 @@ export default function AdminManage() {
     try {
       setToken(user.token);
       const users = await requestAllUsers();
+      console.log(users);
       const filteredUser = users.filter(
         (userResponse) => userResponse.id !== user.id,
       );

@@ -15,7 +15,7 @@ const headerNameTestid = 'customer_products__element-navbar-user-full-name';
 
 jest.mock('../services/requests');
 
-describe('Testando a página de Register', () => {
+describe('Testes relacionados a página Register', () => {
   afterEach(() => {
     jest.resetAllMocks();
     localStorage.clear();

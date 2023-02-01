@@ -1,3 +1,5 @@
+const sellerFulanaEmail = 'fulana@deliveryapp.com';
+
 export const inputRegisterMock = {
   name: 'Marquinhos Gameplay',
   email: 'Mgameplay@bol.com',
@@ -18,7 +20,7 @@ export const inputCustomerMock = {
 };
 
 export const outputCustomerMock = {
-  id: 2,
+  id: 3,
   name: 'Cliente Zé Birita',
   email: 'zebirita@email.com',
   token: 'customer token',
@@ -26,14 +28,14 @@ export const outputCustomerMock = {
 };
 
 export const inputSellerMock = {
-  email: 'fulana@deliveryapp.com',
+  email: sellerFulanaEmail,
   password: 'fulana@123',
 };
 
 export const outputSellerMock = {
   id: 3,
   name: 'Fulana Pereira',
-  email: 'fulana@deliveryapp.com',
+  email: sellerFulanaEmail,
   token: 'seller token',
   role: 'seller',
 };
@@ -44,6 +46,7 @@ export const outputAdminMock = {
   email: 'adm@deliveryapp.com',
   role: 'administrator',
 };
+
 export const inputAdminMock = {
   email: 'adm@deliveryapp.com',
   password: '--adm2@21!!--',
@@ -64,15 +67,17 @@ export const allUsers = [
   },
 ];
 
-export const orders = [
+export const outputAllSellersMock = [
   {
-    deliveryAddress: 'Rua oliveira',
-    deliveryNumber: '456',
-    id: 1,
-    saleDate: '2023-01-31T22:16:46.000Z',
-    sellerId: 2,
-    status: 'Pendente',
-    totalPrice: '12.19',
-    userId: 3,
+    id: 2,
+    name: 'Fulana Pereira',
+    email: sellerFulanaEmail,
+    role: 'seller',
+  },
+  {
+    id: 6,
+    name: 'Fulano Almeida',
+    email: 'almeida@deliveryapp.com',
+    role: 'seller',
   },
 ];

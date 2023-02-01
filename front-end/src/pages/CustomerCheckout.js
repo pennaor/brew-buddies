@@ -29,7 +29,7 @@ export default function CustomerCheckout() {
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
     if (data === null) {
-      return [];
+      return navigate('/login');
     }
     return data;
   };
@@ -64,7 +64,7 @@ export default function CustomerCheckout() {
       localStorage.removeItem('shopCart');
       navigate(`/customer/orders/${saleId}`);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

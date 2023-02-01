@@ -67,4 +67,27 @@ export const allProductsMock = [
   },
 ];
 
+export const shopCartMock = [{
+  id: 3,
+  name: 'Stella Artois 275ml',
+  price: '3.49',
+  quantity: 1,
+  urlImage: 'http://localhost:3001/images/stella_artois_275ml.jpg',
+},
+{
+  id: 1,
+  name: 'Skol Beats Senses 269ml',
+  price: '3.57',
+  quantity: 5,
+  urlImage: 'http://localhost:3001/images/skol_beats_senses_269ml.jpg',
+},
+{
+  id: 5,
+  name: 'Becks 600ml',
+  price: '8.89',
+  quantity: 3,
+  urlImage: 'http://localhost:3001/images/becks_600ml.jpg',
+},
+];
+
 export default allProductsMock;
