@@ -21,7 +21,7 @@ const errorMessageMock = 'Fail request';
 
 jest.mock('../services/requests');
 
-describe('Testando a página de customerCheckout', () => {
+describe('Testando a página de customerOrderDetails', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     localStorage.clear();

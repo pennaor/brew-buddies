@@ -22,7 +22,7 @@ export default function CustomerCheckout() {
       setSellerId(response[0].id);
       setSellersAvaible(response);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

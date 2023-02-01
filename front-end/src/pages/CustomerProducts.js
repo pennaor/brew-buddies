@@ -114,7 +114,7 @@ export default function CustomerProducts() {
     <div>
       <Header { ...user } />
       <div>
-        {products.lenght === 0 ? (
+        {products.length === 0 ? (
           <h2>Não há produtos cadastrados</h2>
         ) : (
           products.map((product) => (

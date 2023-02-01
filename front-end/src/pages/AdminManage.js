@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormUserRegistration from '../components/FormUserRegistration';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -10,25 +11,18 @@ import {
   setToken,
 } from '../services/requests';
 
-// const mockUsers = [
-//   { id: 1,
-//     name: 'Delivery App Admin',
-//     email: 'adm@deliveryapp.com',
-//     role: 'administrator' },
-//   { id: 2, name: 'Fulana Pereira', email: 'fulana@deliveryapp.com', role: 'seller' },
-//   { id: 3, name: 'Cliente Zé Birita', email: 'zebirita@email.com', role: 'customer' },
-// ];
-
 export default function AdminManage() {
   const [user, setUser] = useState('');
   const [registeredUsers, setRegisteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fetchError, setfetchError] = useState('');
 
+  const navigate = useNavigate();
+
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
     if (data === null) {
-      return [];
+      return navigate('/login');
     }
     return data;
   };
@@ -37,14 +31,14 @@ export default function AdminManage() {
     try {
       setToken(user.token);
       const users = await requestAllUsers();
-      console.log(users);
+      console.log('requestAllUser', users);
       const filteredUser = users.filter(
         (userResponse) => userResponse.id !== user.id,
       );
       setRegisteredUsers(filteredUser);
     } catch (error) {
-      console.log(error);
-      setfetchError(error);
+      console.log(error.message);
+      setfetchError(error.message);
     }
   };
 
@@ -53,9 +47,10 @@ export default function AdminManage() {
     try {
       setToken(user.token);
       const newUser = await requestCreateUser(body);
+      console.log('requestCreateUser', newUser);
       setRegisteredUsers([...registeredUsers, newUser]);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       setfetchError(error.message);
     }
   };
@@ -69,7 +64,7 @@ export default function AdminManage() {
       );
       setRegisteredUsers(restOfUsers);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       setfetchError(error.message);
     }
   };
