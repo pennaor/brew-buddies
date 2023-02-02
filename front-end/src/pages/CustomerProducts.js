@@ -24,6 +24,9 @@ export default function CustomerProducts() {
 
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
+    if (data === null && storageName === 'user') {
+      return navigate('/login');
+    }
     if (data === null) {
       return [];
     }
@@ -101,10 +104,13 @@ export default function CustomerProducts() {
 
   useEffect(() => {
     setUser(getStorageData('user'));
+  }, []);
+
+  useEffect(() => {
     setShopCart(getStorageData('shopCart'));
     fetchProducts();
     setLoading(false);
-  }, []);
+  }, [user]);
 
   if (loading) {
     return <Loading />;
@@ -115,7 +121,11 @@ export default function CustomerProducts() {
       <Header { ...user } />
       <div>
         {products.length === 0 ? (
-          <h2>Não há produtos cadastrados</h2>
+          <h2
+            data-testid="notProducts"
+          >
+            Não há produtos cadastrados
+          </h2>
         ) : (
           products.map((product) => (
             <ProductCard

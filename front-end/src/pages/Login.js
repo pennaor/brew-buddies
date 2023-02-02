@@ -6,16 +6,24 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassoword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [user, setUser] = useState('');
 
   const navigate = useNavigate();
 
+  const pathChanger = (role) => {
+    if (role === 'administrator') {
+      navigate('/admin/manage');
+    } else if (role === 'seller') {
+      navigate('/seller/orders');
+    } else {
+      navigate('/customer/products');
+    }
+  };
+
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
-    if (data === null) {
-      return [];
+    if (data !== null) {
+      return pathChanger(data.role);
     }
-    return data;
   };
 
   const validateStatusButton = () => {
@@ -26,43 +34,19 @@ export default function Login() {
     return !(emailValidator && passwordValidator);
   };
 
-  const changePathAfterLogin = (role) => {
-    if (role === 'administrator') {
-      navigate('/admin/manage');
-    } else if (role === 'seller') {
-      navigate('/seller/orders');
-    } else {
-      navigate('/customer/products');
-    }
-  };
-
   const handleLogin = async () => {
     try {
       const response = await requestLogin({ email, password });
       localStorage.setItem('user', JSON.stringify(response));
-      changePathAfterLogin(response.role);
+      pathChanger(response.role);
     } catch (error) {
       setLoginError(error.message);
     }
   };
 
   useEffect(() => {
-    setUser(getStorageData('user'));
+    getStorageData('user');
   }, []);
-
-  if (user.name) {
-    if (user.role === 'customer') {
-      navigate('/customer/products');
-    }
-
-    if (user.role === 'seller') {
-      navigate('/seller/orders');
-    }
-
-    if (user.role === 'administrator') {
-      navigate('/admin/manage');
-    }
-  }
 
   return (
     <main>

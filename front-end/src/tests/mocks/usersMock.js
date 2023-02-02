@@ -73,6 +73,12 @@ export const allUsers = [
     name: 'Zé Birita Jr',
     role: 'customer',
   },
+  {
+    id: 5,
+    name: 'Boss da empresa',
+    email: 'boss@boss.com',
+    role: 'administrator',
+  },
 ];
 
 export const outputAllSellersMock = [

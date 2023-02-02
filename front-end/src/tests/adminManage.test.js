@@ -42,7 +42,7 @@ describe.only('Testando a página de adminManage', () => {
 
       renderWithRouter(<App />, { route });
 
-      const tableLineNumber = 3;
+      const tableLineNumber = 4;
 
       await waitFor(() => {
         expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);
@@ -71,7 +71,7 @@ describe.only('Testando a página de adminManage', () => {
 
       const { user } = renderWithRouter(<App />, { route });
 
-      const tableLineNumber = 3;
+      const tableLineNumber = 4;
 
       await waitFor(() => {
         expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);
@@ -92,7 +92,7 @@ describe.only('Testando a página de adminManage', () => {
 
       await user.click(registerButton);
 
-      const tableLineNumberAfterNewUser = 4;
+      const tableLineNumberAfterNewUser = 5;
 
       await waitFor(() => {
         expect(screen.getAllByRole('row')).toHaveLength(tableLineNumberAfterNewUser);
@@ -113,7 +113,7 @@ describe.only('Testando a página de adminManage', () => {
 
       const { user } = renderWithRouter(<App />, { route });
 
-      const tableLineNumber = 3;
+      const tableLineNumber = 4;
 
       await waitFor(() => {
         expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);
@@ -153,7 +153,7 @@ describe.only('Testando a página de adminManage', () => {
 
       const { user } = renderWithRouter(<App />, { route });
 
-      const tableLineNumber = 3;
+      const tableLineNumber = 4;
 
       await waitFor(() => {
         expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);
@@ -163,7 +163,7 @@ describe.only('Testando a página de adminManage', () => {
 
       await user.click(deleteButton);
 
-      const tableLineNumberAfterNewUser = 2;
+      const tableLineNumberAfterNewUser = 3;
 
       await waitFor(() => {
         expect(screen.getAllByRole('row')).toHaveLength(tableLineNumberAfterNewUser);
@@ -184,7 +184,7 @@ describe.only('Testando a página de adminManage', () => {
 
       const { user } = renderWithRouter(<App />, { route });
 
-      const tableLineNumber = 3;
+      const tableLineNumber = 4;
 
       await waitFor(() => {
         expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);

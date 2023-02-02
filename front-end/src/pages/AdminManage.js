@@ -31,7 +31,6 @@ export default function AdminManage() {
     try {
       setToken(user.token);
       const users = await requestAllUsers();
-      console.log('requestAllUser', users);
       const filteredUser = users.filter(
         (userResponse) => userResponse.id !== user.id,
       );
@@ -47,7 +46,6 @@ export default function AdminManage() {
     try {
       setToken(user.token);
       const newUser = await requestCreateUser(body);
-      console.log('requestCreateUser', newUser);
       setRegisteredUsers([...registeredUsers, newUser]);
     } catch (error) {
       console.log(error.message);

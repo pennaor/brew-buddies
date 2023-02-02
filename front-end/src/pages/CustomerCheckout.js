@@ -28,8 +28,11 @@ export default function CustomerCheckout() {
 
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
-    if (data === null) {
+    if (data === null && storageName === 'user') {
       return navigate('/login');
+    }
+    if (data === null) {
+      return [];
     }
     return data;
   };
@@ -70,10 +73,18 @@ export default function CustomerCheckout() {
 
   useEffect(() => {
     setUser(getStorageData('user'));
+  }, []);
+
+  useEffect(() => {
     setShopCart(getStorageData('shopCart'));
     fetchSellers();
     setLoading(false);
-  }, [setLoading]);
+
+    return () => {
+      setShopCart([]);
+      setLoading(true);
+    };
+  }, [user]);
 
   if (loading) {
     return <Loading />;

@@ -33,7 +33,7 @@ describe('Testando a página de customerCheckout', () => {
   });
   it(
     'Se os elementos são renderizados e se o botão encontra-se desabilitado',
-    () => {
+    async () => {
       requestAllSellers.mockImplementation(
         () => Promise.resolve(outputAllSellersMock),
       );
@@ -44,10 +44,13 @@ describe('Testando a página de customerCheckout', () => {
 
       expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);
       expect(screen.getByTestId(totalPriceTestid)).toBeInTheDocument();
-      expect(screen.getByTestId(selectSellerTestid)).toBeInTheDocument();
       expect(screen.getByTestId(inputAddressTestid)).toBeInTheDocument();
       expect(screen.getByTestId(inputAddressNumberTestid)).toBeInTheDocument();
       expect(screen.getByTestId(finishOrderButtonTestid)).toBeInTheDocument();
+
+      await waitFor(() => {
+        expect(screen.getByTestId(selectSellerTestid)).toBeInTheDocument();
+      });
     },
   );
 
@@ -91,6 +94,10 @@ describe('Testando a página de customerCheckout', () => {
       );
 
       const { user } = renderWithRouter(<App />, { route });
+
+      await waitFor(() => {
+        expect(screen.getByTestId(selectSellerTestid)).toBeInTheDocument();
+      });
 
       const sellerSelect = screen.getByTestId(selectSellerTestid);
       const addressInput = screen.getByTestId(inputAddressTestid);

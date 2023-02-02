@@ -19,8 +19,8 @@ function App() {
         <Route path="/register" element={ <Register /> } />
         <Route path="/customer/products" element={ <CustomerProducts /> } />
         <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
-        <Route path="/customer/orders" element={ <CustomerOrders /> } />
         <Route path="/customer/orders/:id" element={ <CustomerOrderDetails /> } />
+        <Route path="/customer/orders" element={ <CustomerOrders /> } />
         <Route path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
         <Route path="/seller/orders" element={ <SellerOrders /> } />
         <Route path="/admin/manage" element={ <Manage /> } />
