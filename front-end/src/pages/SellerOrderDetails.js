@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHref } from 'react-router-dom';
+import { useNavigate, useHref } from 'react-router-dom';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import OrderTable from '../components/OrderTable';
@@ -11,29 +11,34 @@ export default function SellerOrderDetails() {
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState({});
 
+  const navigate = useNavigate();
   const history = useHref();
   const url = history.split('/');
 
   const fetchOrder = async (id) => {
     try {
       const response = await requestOrderById(id);
-      console.log(response);
+      console.log('requestOrderById', response);
       setOrder(response);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
   const changeStatusOrder = async (status) => {
-    await requestChangeStatusOrder(url[3], status);
-    const newOrders = { ...order, status };
-    setOrder(newOrders);
+    try {
+      await requestChangeStatusOrder(url[3], status);
+      const newOrders = { ...order, status };
+      setOrder(newOrders);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
     if (data === null) {
-      return [];
+      return navigate('/login');
     }
     return data;
   };
@@ -48,9 +53,14 @@ export default function SellerOrderDetails() {
 
   useEffect(() => {
     setUser(getStorageData('user'));
-    fetchOrder(url[3]);
-    setLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (user.id) {
+      fetchOrder(url[3]);
+      setLoading(false);
+    }
+  }, [user]);
 
   if (loading || !order.id) {
     return <Loading />;
