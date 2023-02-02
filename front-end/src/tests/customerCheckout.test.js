@@ -33,43 +33,50 @@ describe('Testando a página de customerCheckout', () => {
   });
   it(
     'Se os elementos são renderizados e se o botão encontra-se desabilitado',
-    () => {
+    async () => {
       requestAllSellers.mockImplementation(
-        () => Promise.resolve(outputAllCostumerMock),
+        () => Promise.resolve(outputAllSellersMock),
       );
+
       renderWithRouter(<App />, { route });
 
       const tableLineNumber = 4;
 
       expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);
       expect(screen.getByTestId(totalPriceTestid)).toBeInTheDocument();
-      expect(screen.getByTestId(selectSellerTestid)).toBeInTheDocument();
       expect(screen.getByTestId(inputAddressTestid)).toBeInTheDocument();
       expect(screen.getByTestId(inputAddressNumberTestid)).toBeInTheDocument();
       expect(screen.getByTestId(finishOrderButtonTestid)).toBeInTheDocument();
+
+      await waitFor(() => {
+        expect(screen.getByTestId(selectSellerTestid)).toBeInTheDocument();
+      });
     },
   );
 
-  it('Se é possível excluir um item do carrinho', async () => {
-    requestAllSellers.mockImplementation(
-      () => Promise.resolve(outputAllCostumerMock),
-    );
-    const { user } = renderWithRouter(<App />, { route });
+  it(
+    'Se é possível excluir um item do carrinho',
+    async () => {
+      requestAllSellers.mockImplementation(
+        () => Promise.resolve(outputAllSellersMock),
+      );
+      const { user } = renderWithRouter(<App />, { route });
 
-    const tableLineNumber = 4;
-    const indexNumber = 1;
+      const tableLineNumber = 4;
+      const indexNumber = 1;
 
-    const secondItemCardButton = screen.getByTestId(
-      `${removeButtonTestid}-${indexNumber}`,
-    );
+      const secondItemCardButton = screen.getByTestId(
+        `${removeButtonTestid}-${indexNumber}`,
+      );
 
-    expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);
-    expect(secondItemCardButton).toBeInTheDocument();
+      expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber);
+      expect(secondItemCardButton).toBeInTheDocument();
 
-    await user.click(secondItemCardButton);
+      await user.click(secondItemCardButton);
 
-    expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber - 1);
-  });
+      expect(screen.getAllByRole('row')).toHaveLength(tableLineNumber - 1);
+    },
+  );
 
   it(
     'Ao finalizar pedido com sucesso a página é redirecionada para customer/order/:id',
@@ -87,6 +94,10 @@ describe('Testando a página de customerCheckout', () => {
       );
 
       const { user } = renderWithRouter(<App />, { route });
+
+      await waitFor(() => {
+        expect(screen.getByTestId(selectSellerTestid)).toBeInTheDocument();
+      });
 
       const sellerSelect = screen.getByTestId(selectSellerTestid);
       const addressInput = screen.getByTestId(inputAddressTestid);
@@ -156,6 +167,22 @@ describe('Testando a página de customerCheckout', () => {
 
       await user.click(finishOrderButton);
       expect(spy).toHaveBeenCalledWith('Invalid create');
+    },
+  );
+
+  it(
+    'Se ao falhar a requisição de vendedores na API é exibida um console com o erro',
+    async () => {
+      requestAllSellers.mockImplementation(
+        () => Promise.reject(new Error('Request fail')),
+      );
+
+      const spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+      renderWithRouter(<App />, { route });
+
+      await waitFor(() => {
+        expect(spy).toHaveBeenCalledWith('Request fail');
+      });
     },
   );
 });

@@ -2,15 +2,22 @@ import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import { requestProducts, requestAllSellers } from '../services/requests';
+import {
+  requestProducts,
+  requestAllSellers,
+  requestOrdersByClient,
+} from '../services/requests';
 import { outputCustomerMock, outputAllSellersMock } from './mocks/usersMock';
 import { allProductsMock, shopCartMock } from './mocks/productsMock';
+import { sellerOrdersMock } from './mocks/ordersMock';
 
 const idQuantity = 'customer_products__input-card-quantity-1';
 const idRMIntem = 'customer_products__button-card-rm-item-1';
 const idAddItem = 'customer_products__button-card-add-item-1';
 const buttonCard = 'customer_products__button-cart';
 const headerNameTestid = 'customer_products__element-navbar-user-full-name';
+const headerButtonLogoutTestid = 'customer_products__element-navbar-link-logout';
+const myOrdersButtonTestid = 'customer_products__element-navbar-link-orders';
 
 const route = '/customer/products';
 jest.mock('../services/requests');
@@ -102,7 +109,7 @@ describe('Testando a página de customerProduct', () => {
       expect(spy).toHaveBeenCalledWith('Error');
     });
   });
-  it('Não a produstos cadastratos um texto deve ser exibido', async () => {
+  it('Se não há produtos cadastratos um texto deve ser exibido', async () => {
     requestProducts.mockImplementation(
       () => Promise.resolve([]),
     );
@@ -114,4 +121,61 @@ describe('Testando a página de customerProduct', () => {
       )).toBeInTheDocument();
     });
   });
+
+  it(
+    'Redireciona para /login caso não encontre um user salvo no storage',
+    async () => {
+      localStorage.clear();
+
+      requestProducts.mockImplementation(
+        () => Promise.resolve(allProductsMock),
+      );
+
+      renderWithRouter(<App />, { route });
+
+      await waitFor(() => {
+        expect(screen.getByTestId('common_login__button-login')).toBeInTheDocument();
+      });
+    },
+  );
+
+  it(
+    'Se ao clicar no botão de sair realiza o logout e é redirecionado para /login',
+    async () => {
+      requestProducts.mockImplementation(
+        () => Promise.resolve([]),
+      );
+      const { user } = renderWithRouter(<App />, { route });
+
+      const logoutButton = screen.getByTestId(headerButtonLogoutTestid);
+      await user.click(logoutButton);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('common_login__button-login')).toBeInTheDocument();
+      });
+    },
+  );
+
+  it(
+    'Se ao clicar no botão meus pedidos a tela é redirecionado para /customer/order',
+    async () => {
+      requestProducts.mockImplementation(
+        () => Promise.resolve([]),
+      );
+
+      requestOrdersByClient.mockImplementation(
+        () => Promise.resolve(sellerOrdersMock),
+      );
+
+      const { user } = renderWithRouter(<App />, { route });
+
+      const myOrdersButton = screen.getByTestId(myOrdersButtonTestid);
+      await user.click(myOrdersButton);
+
+      await waitFor(() => {
+        expect(screen
+          .getByTestId('customer_orders__element-order-id-1')).toBeInTheDocument();
+      });
+    },
+  );
 });

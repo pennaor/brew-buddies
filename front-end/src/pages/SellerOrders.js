@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import OrderCard from '../components/OrderCard';
@@ -9,20 +10,21 @@ export default function SellerOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   const fetchOrders = async (id) => {
     try {
       const response = await requestOrdersBySeller(id);
-      console.log(response);
       setOrders(response);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
   const getStorageData = (storageName) => {
     const data = JSON.parse(localStorage.getItem(storageName));
-    if (data === null) {
-      return [];
+    if (data === null && storageName === 'user') {
+      return navigate('/login');
     }
     return data;
   };
