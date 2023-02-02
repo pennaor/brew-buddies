@@ -115,15 +115,7 @@ export default function CustomerProducts() {
       <Header { ...user } />
       <div>
         {products.length === 0 ? (
-<<<<<<< HEAD
           <h2>Não há produtos cadastrados</h2>
-=======
-          <h2
-            data-testid="notProducts"
-          >
-            Não há produtos cadastrados
-          </h2>
->>>>>>> a77ffb348601c01294d538c3ac4e908fc031c01d
         ) : (
           products.map((product) => (
             <ProductCard
