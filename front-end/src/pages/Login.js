@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { IoIosBeer } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { requestLogin } from '../services/requests';
 
@@ -49,51 +50,62 @@ export default function Login() {
   }, []);
 
   return (
-    <main>
-      <div>
-        <div>
-          <label htmlFor="email">
-            <p>Login</p>
-            <input
-              type="email"
-              id="email"
-              placeholder="digite seu email, ex:.email@email.com"
-              data-testid="common_login__input-email"
-              value={ email }
-              onChange={ ({ target }) => setEmail(target.value) }
-            />
-          </label>
-          <label htmlFor="password">
-            <p>Senha</p>
-            <input
-              type="password"
-              id="password"
-              placeholder="digite sua senha..."
-              data-testid="common_login__input-password"
-              value={ password }
-              onChange={ ({ target }) => setPassoword(target.value) }
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="common_login__button-login"
-            disabled={ validateStatusButton() }
-            onClick={ handleLogin }
-          >
-            Login
-          </button>
-          <button
-            type="button"
-            data-testid="common_login__button-register"
-            onClick={ () => navigate('/register') }
-          >
-            Ainda não tenho conta
-          </button>
+    <main className="login-container">
+      <div className="login-container-content">
+        <div className="login-container-content-title">
+          <div>
+            <h1>Brew</h1>
+            <h1>Buddies</h1>
+          </div>
+          <IoIosBeer />
         </div>
-        {loginError && (
-          <p data-testid="common_login__element-invalid-email">{loginError}</p>
-        )}
+        <label htmlFor="email">
+          <p>Login</p>
+          <input
+            type="email"
+            id="email"
+            placeholder="digite seu email..."
+            data-testid="common_login__input-email"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+        </label>
+        <label htmlFor="password">
+          <p>Senha</p>
+          <input
+            type="password"
+            id="password"
+            placeholder="digite sua senha..."
+            data-testid="common_login__input-password"
+            value={ password }
+            onChange={ ({ target }) => setPassoword(target.value) }
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="common_login__button-login"
+          disabled={ validateStatusButton() }
+          onClick={ handleLogin }
+        >
+          Entrar
+        </button>
+        <div className="login-container-content-register">
+          <p>Não tem uma conta ainda?</p>
+          <a
+            data-testid="common_login__button-register"
+            href="/register"
+          >
+            Cadastre-se
+          </a>
+        </div>
       </div>
+      {loginError && (
+        <p
+          data-testid="common_login__element-invalid-email"
+        >
+          Login inválido
+        </p>
+      )}
     </main>
   );
 }

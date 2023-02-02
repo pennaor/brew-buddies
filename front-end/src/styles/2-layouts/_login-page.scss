@@ -1,0 +1,123 @@
+.login-container {
+  align-items: center;
+  background-color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  row-gap: 1.10rem;
+
+  &-content {
+    background-color: $second-color;
+    border-radius: 2rem;
+    row-gap: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+    width: 30rem;
+    
+    img {
+      width: 15rem;
+    }
+
+    &-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        font-size: 7.5rem;
+
+        :nth-child(2) {
+          color: yellow;
+        }
+      }
+      
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        h1 {
+          line-height: 4rem;
+          font-size: 4rem;
+          font-family: 'Lato', sans-serif;;
+        }
+      }
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.25rem;
+      width: 90%;
+
+      p {
+        font-size: 1.5rem;
+      }
+
+      input {
+        border: none;
+        font-size: 1.5rem;
+        padding: 1.10rem;
+        border-radius: 1rem;
+        height: 2rem;
+      }
+    }
+
+    button {
+      border: 0.1rem solid transparent;
+      background-color: $third-color;
+      font-weight: 600;
+      color: $white-color;
+      border-radius: 1rem;
+      font-size: 1.75rem;
+      height: 2.5rem;
+      padding: 0.20rem;
+      width: 90%;
+      transition: 0.75s;
+
+      &:disabled {
+        background-color: $third-color;
+        opacity: 50%;
+      }
+
+      &:enabled:hover {
+        border: 0.1rem solid $white-color;
+        box-shadow: 0 0 0.2rem $third-color;
+        background-color: $third-light-color;
+        opacity: 100%;
+      }
+    }
+
+    &-register {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      row-gap: 0.5rem;
+      
+      a {
+        font-size: 1.25rem;
+        color: $white-color;
+
+        &:hover {
+          color: $sixth-color;
+          text-decoration: underline;
+        }
+      }
+
+      p {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  & > p {
+    font-size: 1.25rem
+  }
+}
