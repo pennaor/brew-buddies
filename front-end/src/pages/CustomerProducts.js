@@ -18,7 +18,7 @@ export default function CustomerProducts() {
       const response = await requestProducts();
       setProducts(response);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
@@ -41,7 +41,7 @@ export default function CustomerProducts() {
         JSON.stringify([...cartItems]),
       );
       setShopCart(getStorageData('shopCart'));
-    } else if (itemCart.quantity > 1) {
+    } else {
       const cartItems = shopCart;
       cartItems[itemIndex].quantity -= 1;
       localStorage.setItem(
@@ -114,8 +114,12 @@ export default function CustomerProducts() {
     <div>
       <Header { ...user } />
       <div>
-        {products.lenght === 0 ? (
-          <h2>Não há produtos cadastrados</h2>
+        {products.length === 0 ? (
+          <h2
+            data-testid="notProducts"
+          >
+            Não há produtos cadastrados
+          </h2>
         ) : (
           products.map((product) => (
             <ProductCard
