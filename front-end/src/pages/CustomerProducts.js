@@ -78,12 +78,10 @@ export default function CustomerProducts() {
   };
 
   const updateItemCart = (product, value) => {
-    console.log(value);
     const nonExistentIndex = -1;
     const itemIndex = shopCart.findIndex((cartItem) => cartItem.id === product.id);
 
     if (itemIndex === nonExistentIndex && value !== 0) {
-      console.log('chamou 1');
       localStorage.setItem(
         'shopCart',
         JSON.stringify([...shopCart, { ...product, quantity: value }]),
@@ -98,7 +96,6 @@ export default function CustomerProducts() {
       );
       setShopCart(getStorageData('shopCart'));
     } else {
-      console.log('chamou 2');
       const cartItems = shopCart;
       cartItems[itemIndex].quantity = value;
       localStorage.setItem(

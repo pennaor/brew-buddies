@@ -1,0 +1,120 @@
+.checkout-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  justify-items: center;
+  row-gap: 2rem;
+  width: 100%;
+  min-height: 100vh;
+
+  &-content{
+    padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1.5rem;
+    width: 100%;
+
+    h2 {
+      font-size: 2rem;
+      align-self: flex-start;
+      width: 100%;
+      padding-bottom: 0.5rem;
+      border-bottom: 0.1rem solid $white-color;
+    }
+
+    .checkout-content-table {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      h1 {
+        background-color: $white-color;
+        color: $primary-color;
+        padding: 0 1rem;
+        align-self: flex-end;
+        font-size: 2rem;
+        border-bottom-left-radius: 1rem;
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 1rem;
+
+        span {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .checkout-content-informations {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 70%;
+      row-gap: 1rem;
+      padding-bottom: 2rem;
+
+      &-head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        column-gap: 2rem;
+
+        p {
+          width: 100%;
+          font-size: 1.5rem;
+        }
+      }
+
+      &-labels {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        column-gap: 2rem;
+
+        label {
+          width: 100%;
+
+          input {
+            padding: 0.25rem 0.5rem;
+            font-size: 1.5rem;
+            width: 100%;
+            border-radius: 0.5rem;
+          }
+
+          select {
+            outline: none;
+            padding: 0.25rem 0.5rem;
+            font-size: 1.5rem;
+            width: 100%;
+            border-radius: 0.5rem;
+
+            option {
+              padding: 0.25rem 0.15rem;
+              font-size: 1.5rem;
+            }
+
+            &:focus:hover {
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+          }
+        }
+      }
+    }
+
+    & > button {
+      background-color: $third-light-color;
+      font-size: 2rem;
+      color: $white-color;
+      padding: 0.25rem;
+      width: 30%;
+      border: 0.1rem solid transparent;
+      border-radius: 5rem;
+    }
+  }
+}
