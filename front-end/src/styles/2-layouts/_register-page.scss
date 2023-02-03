@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
   align-items: center;
   background-color: $primary-color;
   display: flex;
@@ -7,6 +7,39 @@
   min-width: 100vw;
   min-height: 100vh;
   row-gap: 1.10rem;
+
+  &-back {
+    border: 0.05rem solid transparent;
+    padding: 0.5rem;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
+    transition: 1s;
+
+    svg {
+      font-size: 2.5rem;
+      color: $white-color;
+      transition: 0.7s;
+    }
+
+    p {
+      font-size: 2rem;
+      color: $white-color;
+    }
+
+    &:hover {
+      border: 0.1rem solid $white-color;
+      svg{
+        rotate: 45deg;
+        color: $white-color;
+      }
+    }
+
+  }
 
   &-content {
     background-color: $second-color;
@@ -85,6 +118,7 @@
         padding: 1.10rem;
         border-radius: 1rem;
         height: 2rem;
+        background-color: $white-color;
 
         &:-webkit-autofill{
           background-color: $white-color;
@@ -92,8 +126,6 @@
           transition: background-color 5000s ease-in-out 0s;
         }
       }
-
-
     }
 
     button {
@@ -106,9 +138,10 @@
       height: 2.5rem;
       padding: 0.20rem;
       width: 90%;
-      transition: 1s;
+      transition: 0.75s;
 
       &:disabled {
+        background-color: $third-color;
         opacity: 50%;
       }
 

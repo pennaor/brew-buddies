@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MdOutlineShoppingCart, MdOutlineRemoveShoppingCart } from 'react-icons/md';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import ProductCard from '../components/ProductCard';
@@ -77,16 +78,27 @@ export default function CustomerProducts() {
   };
 
   const updateItemCart = (product, value) => {
+    console.log(value);
     const nonExistentIndex = -1;
     const itemIndex = shopCart.findIndex((cartItem) => cartItem.id === product.id);
 
-    if (itemIndex === nonExistentIndex) {
+    if (itemIndex === nonExistentIndex && value !== 0) {
+      console.log('chamou 1');
       localStorage.setItem(
         'shopCart',
         JSON.stringify([...shopCart, { ...product, quantity: value }]),
       );
       setShopCart(getStorageData('shopCart'));
+    } else if (value === 0) {
+      const itemCart = shopCart[itemIndex];
+      const cartItems = shopCart.filter((item) => item.id !== itemCart.id);
+      localStorage.setItem(
+        'shopCart',
+        JSON.stringify([...cartItems]),
+      );
+      setShopCart(getStorageData('shopCart'));
     } else {
+      console.log('chamou 2');
       const cartItems = shopCart;
       cartItems[itemIndex].quantity = value;
       localStorage.setItem(
@@ -107,9 +119,11 @@ export default function CustomerProducts() {
   }, []);
 
   useEffect(() => {
-    setShopCart(getStorageData('shopCart'));
-    fetchProducts();
-    setLoading(false);
+    if (user.id) {
+      setShopCart(getStorageData('shopCart'));
+      fetchProducts();
+      setLoading(false);
+    }
   }, [user]);
 
   if (loading) {
@@ -117,9 +131,9 @@ export default function CustomerProducts() {
   }
 
   return (
-    <div>
+    <div className="products-container">
       <Header { ...user } />
-      <div>
+      <div className="products-container-content">
         {products.length === 0 ? (
           <h2
             data-testid="notProducts"
@@ -138,19 +152,34 @@ export default function CustomerProducts() {
             />
           ))
         )}
-        <button
-          type="button"
-          data-testid="customer_products__button-cart"
-          onClick={ () => navigate('/customer/checkout') }
-          disabled={ sumCartTotal() === '0,00' }
-        >
-          Ver Carrinho: R$
-          {' '}
-          <span data-testid="customer_products__checkout-bottom-value">
-            {sumCartTotal()}
-          </span>
-        </button>
       </div>
+      <button
+        type="button"
+        className="products-container-shopCart"
+        data-testid="customer_products__button-cart"
+        onClick={ () => navigate('/customer/checkout') }
+        disabled={ sumCartTotal() === '0,00' }
+      >
+        <div
+          className="shopCart-icon"
+        >
+          { sumCartTotal() === '0,00' ? (
+            <MdOutlineRemoveShoppingCart />
+          ) : (
+            <MdOutlineShoppingCart />
+          ) }
+        </div>
+        <div
+          className="shopCart-total"
+        >
+          <p data-testid="customer_products__checkout-bottom-value">
+            Total:
+          </p>
+          <p data-testid="customer_products__checkout-bottom-value">
+            {`R$: ${sumCartTotal()}`}
+          </p>
+        </div>
+      </button>
     </div>
   );
 }

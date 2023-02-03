@@ -59,8 +59,11 @@ export default function Login() {
           </div>
           <IoIosBeer />
         </div>
+        <div className="login-container-content-localName">
+          <h2>Login</h2>
+        </div>
         <label htmlFor="email">
-          <p>Login</p>
+          <p>Email</p>
           <input
             type="email"
             id="email"
