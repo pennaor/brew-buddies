@@ -69,7 +69,7 @@ export default function CustomerOrderDetails() {
     <div className="customerOrderDetails-container">
       <Header { ...user } />
       <div className="customerOrderDetails-container-content">
-        <h2>Detalhe do Pedido</h2>
+        <h2>Detalhes do Pedido</h2>
         <CustomerOrderLabel
           order={ order }
           changeStatusOrder={ changeStatusOrder }

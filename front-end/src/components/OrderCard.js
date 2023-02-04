@@ -58,7 +58,7 @@ export default function OrderCard({ order, page }) {
             <p
               data-testid={ `seller_orders__element-card-address-${id}` }
             >
-              {`${deliveryAddress}, ${deliveryNumber}`}
+              {`Endereço: ${deliveryAddress}, ${deliveryNumber}`}
             </p>
           </div>
         )
