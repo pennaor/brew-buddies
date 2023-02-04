@@ -41,14 +41,18 @@
           background-color: $second-color;
           padding: 0 1rem;
 
+          &:enabled:hover{
+            border: 0.1rem solid $white-color;
+          }
+
           &:disabled {
             background-color: $primary-color;
             color: white;
             font-weight: 600;
             border-bottom: 0.5rem solid $primary-color;
             border-top: 0.5rem solid $primary-color;
-            border-right: 0.4rem solid $second-color;
-            border-left: 0.4rem solid $second-color;
+            border-right: 0.4rem solid $second-dark-color;
+            border-left: 0.4rem solid $second-dark-color;
           }
         }
       }

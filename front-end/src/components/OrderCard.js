@@ -17,7 +17,7 @@ export default function OrderCard({ order, page }) {
         className="orderCard-container-content"
       >
         <div className="orderCard-content-order">
-          <p>Pedido:</p>
+          <p>Pedido</p>
           <p data-testid={ `${page}__element-order-id-${id}` }>
             {id}
           </p>
