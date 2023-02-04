@@ -33,7 +33,7 @@ export default function ProductCard({
           className="productCard-container-content-price"
           data-testid={ `customer_products__element-card-price-${id}` }
         >
-          {`R$: ${price.toString().replace('.', ',')}`}
+          {`R$ ${price.toString().replace('.', ',')}`}
         </p>
         <div className="productCard-container-content-product">
           <img

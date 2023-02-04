@@ -21,7 +21,7 @@ const SELLER_BUTTON = [
   {
     testId: DEFAULT_BUTTON_TESTID,
     rota: '/seller/orders',
-    description: 'Produtos',
+    description: 'Pedidos',
   },
 ];
 
@@ -47,7 +47,7 @@ export default function Header({ name, role }) {
       type="button"
       key={ button.description }
       data-testid={ button.testId }
-      disabled={ history.includes(button.rota) }
+      disabled={ history === button.rota }
       onClick={ () => navigate(button.rota) }
     >
       {button.description}

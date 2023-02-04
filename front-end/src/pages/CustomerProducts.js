@@ -173,7 +173,7 @@ export default function CustomerProducts() {
             Total:
           </p>
           <p data-testid="customer_products__checkout-bottom-value">
-            {`R$: ${sumCartTotal()}`}
+            {`R$ ${sumCartTotal()}`}
           </p>
         </div>
       </button>

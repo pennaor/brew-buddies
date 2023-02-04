@@ -66,25 +66,27 @@ export default function CustomerOrderDetails() {
   }
 
   return (
-    <div>
+    <div className="customerOrderDetails-container">
       <Header { ...user } />
-      <div>
-        <h3>Detalhe do Pedido</h3>
+      <div className="customerOrderDetails-container-content">
+        <h2>Detalhe do Pedido</h2>
         <CustomerOrderLabel
           order={ order }
           changeStatusOrder={ changeStatusOrder }
         />
-        <OrderTable
-          productOrders={ order.products }
-          page="customer_order_details"
-        />
-        <h1>
-          Total: R$
-          {' '}
-          <span data-testid="customer_order_details__element-order-total-price">
-            {sumCartTotal()}
-          </span>
-        </h1>
+        <div className="customerOrderDetails-container-content-table">
+          <OrderTable
+            productOrders={ order.products }
+            page="customer_order_details"
+          />
+          <h1>
+            Total: R$
+            {' '}
+            <span data-testid="customer_order_details__element-order-total-price">
+              {sumCartTotal()}
+            </span>
+          </h1>
+        </div>
       </div>
     </div>
   );

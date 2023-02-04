@@ -34,8 +34,10 @@ export default function CustomerOrders() {
   }, []);
 
   useEffect(() => {
-    fetchOrders(user.id);
-    setLoading(false);
+    if (user.id) {
+      fetchOrders(user.id);
+      setLoading(false);
+    }
   }, [user]);
 
   if (loading) {

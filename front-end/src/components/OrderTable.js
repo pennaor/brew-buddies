@@ -41,28 +41,26 @@ export default function OrderTable({ productOrders, removeItem, page }) {
               {itemCart.quantity}
             </td>
             <td>
-              {'R$ '}
               <span
                 data-testid={
                   `${page}__element-order-table-unit-price-${index}`
                 }
               >
-                {(itemCart.price)
+                {`R$ ${(itemCart.price)
                   .toString()
-                  .replace('.', ',')}
+                  .replace('.', ',')}`}
               </span>
             </td>
             <td>
-              {'R$ '}
               <span
                 data-testid={
                   `${page}__element-order-table-sub-total-${index}`
                 }
               >
-                {(itemCart.price * itemCart.quantity)
+                {`R$ ${(itemCart.price * itemCart.quantity)
                   .toFixed(2)
                   .toString()
-                  .replace('.', ',')}
+                  .replace('.', ',')}`}
               </span>
             </td>
             {
