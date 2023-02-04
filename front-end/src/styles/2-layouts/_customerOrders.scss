@@ -1,0 +1,19 @@
+.customerOrders-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  justify-items: center;
+  row-gap: 3rem;
+  width: 100%;
+  min-height: 100vh;
+
+  &-content {
+    padding-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+}

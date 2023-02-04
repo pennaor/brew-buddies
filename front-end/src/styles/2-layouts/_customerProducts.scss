@@ -72,16 +72,22 @@ min-height: 100vh;
       bottom: 8rem;
       right: 5rem;
       border-radius: 50%;
-      height: 7.5rem;
-      width: 7.5rem;
+      height: 8.5rem;
+      width: 8.5rem;
       z-index: 0;
       border: 0.25rem solid $third-light-color;
       box-shadow: 0 0 0.5rem $third-light-color;
       transition: 0.5s;
 
       p {
-        font-size: 1.25rem;
+        font-size: 1.6rem;
+        font-weight: 600;
         color: $black-color;
+      }
+
+      :nth-child(1) {
+        font-size: 1.6rem;
+        font-weight: 600;
       }
     }
   }

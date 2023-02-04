@@ -45,15 +45,17 @@ export default function CustomerOrders() {
   }
 
   return (
-    <div>
+    <div className="customerOrders-container">
       <Header { ...user } />
-      {orders.map((order) => (
-        <OrderCard
-          key={ order.id }
-          order={ order }
-          page="customer_orders"
-        />
-      ))}
+      <div className="customerOrders-container-content">
+        {orders.map((order) => (
+          <OrderCard
+            key={ order.id }
+            order={ order }
+            page="customer_orders"
+          />
+        ))}
+      </div>
     </div>
   );
 }

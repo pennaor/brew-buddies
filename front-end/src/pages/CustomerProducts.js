@@ -169,10 +169,14 @@ export default function CustomerProducts() {
         <div
           className="shopCart-total"
         >
-          <p data-testid="customer_products__checkout-bottom-value">
+          <p
+            data-testid="customer_products__checkout-bottom-value"
+          >
             Total:
           </p>
-          <p data-testid="customer_products__checkout-bottom-value">
+          <p
+            data-testid="customer_products__checkout-bottom-value"
+          >
             {`R$ ${sumCartTotal()}`}
           </p>
         </div>
