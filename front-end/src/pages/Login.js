@@ -106,7 +106,7 @@ export default function Login() {
         <p
           data-testid="common_login__element-invalid-email"
         >
-          Login inválido
+          Erro: Falha ao realizar o Login
         </p>
       )}
     </main>

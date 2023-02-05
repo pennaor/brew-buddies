@@ -11,7 +11,13 @@ export default function OrderCard({ order, page }) {
   return (
     <Link
       to={ `${id}` }
-      className="orderCard-container"
+      className={
+        `orderCard-container 
+      ${(order.status === 'Pendente' && 'orderCard-container-pendente')
+      || (order.status === 'Preparando' && 'orderCard-container-preparando')
+      || (order.status === 'Em Trânsito' && 'orderCard-container-em-transito')
+      || 'orderCard-container-entregue'}`
+      }
     >
       <div
         className="orderCard-container-content"

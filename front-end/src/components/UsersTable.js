@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
+import { FaTrashAlt } from 'react-icons/fa';
 
 export default function UsersTable({ users, deleteUser }) {
-  const tableHeader = ['Item', 'Nome', 'E-mail', 'Tipo', 'Excluir'];
+  const tableHeader = ['Cod.', 'Nome', 'E-mail', 'Tipo', 'Excluir'];
 
   return (
-    <table>
-      <thead>
+    <table className="userTable-container">
+      <thead className="userTable-container-head">
         <tr>
           {tableHeader.map((description, index) => (
             <th key={ index }>{description}</th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className="userTable-container-body">
         {users.map((user, index) => (
           <tr
             key={ user.id }
@@ -51,6 +52,8 @@ export default function UsersTable({ users, deleteUser }) {
                 onClick={ () => deleteUser(Number(user.id)) }
               >
                 Excluir
+                {' '}
+                <FaTrashAlt />
               </button>
             </td>
           </tr>

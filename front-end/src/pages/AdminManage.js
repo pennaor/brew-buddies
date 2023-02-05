@@ -83,25 +83,28 @@ export default function AdminManage() {
   }
 
   return (
-    <div>
+    <div className="adminManage-container">
       <Header { ...user } />
-      <div>
-        <div>
-          <h2>Cadastrar novo usuário</h2>
+      <div className="adminManage-container-content">
+        <h2>Cadastrar novo usuário</h2>
+        <FormUserRegistration
+          createUser={ createUser }
+        />
+        <div
+          className="error-container-content"
+        >
           {
             fetchError && (
               <p data-testid="admin_manage__element-invalid-register">
-                {fetchError}
-              </p>)
+                Erro: Falha ao cadastrar um novo usúario
+              </p>
+            )
           }
-          <div>
-            <FormUserRegistration
-              createUser={ createUser }
-            />
-          </div>
         </div>
+        <h2>
+          Quadro de usuários
+        </h2>
         <div>
-          <h2>Lista de usuários</h2>
           <UsersTable
             users={ registeredUsers }
             deleteUser={ deleteUser }
