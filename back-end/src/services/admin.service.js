@@ -6,24 +6,23 @@ const { adminRegisterSchema, positiveIntegerSchema } = require('../joi/schemas')
 
 const register = async (body) => {
   const { error } = adminRegisterSchema.validate(body);
-  console.log(error);
   if (error) {
     throw new HttpException(400, error.message);
   }
   const { email, name, password, role } = body;
 
-  const checkedUser = await User.findOne({ where: { [Op.or]: { email, name } } });
-  if (checkedUser) {
+  const registeredUser = await User.findOne({ where: { [Op.or]: { email, name } } });
+  if (registeredUser) {
     throw new HttpException(409, 'User already registered');
   }
 
-  const user = await User.create({
+  const { dataValues: { password: _, ...user } } = await User.create({
     name,
     email,
     password: md5(password),
     role,
-  }, { raw: true });
-  delete user.password;
+  });
+
   return user;
 };
 

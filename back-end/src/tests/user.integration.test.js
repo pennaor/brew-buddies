@@ -1,14 +1,13 @@
 const chai = require('chai');
-const { expect } = chai;
 const { describe } = require('mocha');
 const Sinon = require('sinon');
 const chaiHttp = require('chai-http');
 const { Model } = require('sequelize');
 const app = require('../api/app');
-const HttpException = require('../exceptions/HttpException');
-const { userToken, userWithToken, validUser, user } = require('./mocks/user.test.mock');
+const { userToken, userWithToken, validUser } = require('./mocks/user.test.mock');
 const jwtUtils = require('../utils/jwt.utils');
 
+const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('Testes de integração de user', function () {
@@ -42,7 +41,7 @@ describe('Testes de integração de user', function () {
       });
     
     expect(response.status).to.be.equal(400);
-    expect(response.body).to.be.deep.equal({ message: '"email" must be a valid email'});
+    expect(response.body).to.be.deep.equal({ message: '"email" must be a valid email' });
   });
 
   it('POST /register ao receber dados de usuário deve responder status 201 e body com os dados e id',

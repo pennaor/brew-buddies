@@ -4,6 +4,7 @@ const saleProductService = require('../services/saleProduct.service');
 
 const create = async (req, res, next) => {
   const { products, ...salePayload } = req.body;
+
   try {
     const saleId = await useTransaction(async (transaction) => {
       const sale = await saleService.create(req.user.id, salePayload, { transaction, raw: true });

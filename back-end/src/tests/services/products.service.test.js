@@ -6,7 +6,7 @@ const productService = require('../../services/product.service');
 const { allProducts } = require('../mocks/products.service.mocks');
 
 describe('Testando Products Service', () => {
-  it('Trazendo todos os produtos', async () => {
+  it('Trazendo todos os produtos', async function () {
     Sinon.stub(Model, 'findAll').resolves(allProducts);
 
     const result = await productService.getAllProducts();

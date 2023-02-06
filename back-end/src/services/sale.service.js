@@ -7,10 +7,12 @@ const create = async (userId, payload, createOptions) => {
   if (error) {
     throw new HttpException(400, error.message);
   }
+
   const {
-    sellerId, totalPrice, deliveryAddress,
-    deliveryNumber,
+    sellerId, totalPrice,
+    deliveryAddress, deliveryNumber,
   } = payload;
+
   const result = await Sale.create({
     userId,
     sellerId,
@@ -19,6 +21,7 @@ const create = async (userId, payload, createOptions) => {
     deliveryNumber,
     status: 'Pendente',
   }, createOptions);
+
   return result;
 };
 
@@ -30,7 +33,7 @@ const getSaleById = async (id) => {
       { model: Product, as: 'products', through: { attributes: ['quantity'] } },
     ],
   });
-
+  
   if (!result) throw new HttpException(404, 'Sale not found');
 
   const { seller, products, ...sale } = result.toJSON();

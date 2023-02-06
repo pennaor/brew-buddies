@@ -1,6 +1,5 @@
-const { expect } = require("chai");
-const { describe } = require("mocha");
-const jwtUtils = require("../../utils/jwt.utils");
+const { expect } = require('chai');
+const { describe } = require('mocha');
 const Sinon = require('sinon');
 const errorManager = require('../../middlewares/errorManager');
 const controllerParams = require('../mocks/controllerParams.mock');

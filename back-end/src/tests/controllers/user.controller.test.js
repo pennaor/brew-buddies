@@ -24,7 +24,7 @@ describe('Verificação de funcionalidades do controller user', function () {
 
   it('"authenticate" ao "pegar" erro deve chamar next com o mesmo',
   async function () {
-    Sinon.stub(userService, 'authenticate').throws(new HttpException(500, "Server error"));
+    Sinon.stub(userService, 'authenticate').throws(new HttpException(500, 'Server error'));
     const { response, next } = controllerParams(Sinon);
 
     await userController.authenticate({ body: { email: userEmail, password: userPassword } }, response, next);
@@ -52,7 +52,7 @@ describe('Verificação de funcionalidades do controller user', function () {
 
   it('"register" ao "pegar" erro deve chamar next com o mesmo',
   async function () {
-    Sinon.stub(userService, 'register').throws(new HttpException(500, "Server error"));
+    Sinon.stub(userService, 'register').throws(new HttpException(500, 'Server error'));
     const { response, next } = controllerParams(Sinon);
 
     await userController.register({ body: { name: userName, email: userEmail, password: userPassword } }, response, next);

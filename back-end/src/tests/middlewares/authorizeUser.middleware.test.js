@@ -1,23 +1,23 @@
-const { expect } = require("chai");
-const { describe } = require("mocha");
-const jwtUtils = require("../../utils/jwt.utils");
+const { expect } = require('chai');
+const { describe } = require('mocha');
 const Sinon = require('sinon');
+const jwtUtils = require('../../utils/jwt.utils');
 const authorizeUser = require('../../middlewares/authorizeUser');
 const controllerParams = require('../mocks/controllerParams.mock');
 const HttpException = require('../../exceptions/HttpException');
 
 const admin = {
   id: 1,
-  name: "Delivery App Admin",
-  email: "adm@deliveryapp.com",
-  role: "administrator",
+  name: 'Delivery App Admin',
+  email: 'adm@deliveryapp.com',
+  role: 'administrator',
 };
 
 const customer = {
   id: 2,
-  name: "Fulano usuario",
-  email: "fulanousuario@gmail.com",
-  role: "customer",
+  name: 'Fulano usuario',
+  email: 'fulanousuario@gmail.com',
+  role: 'customer',
 };
 
 describe('Verifica middleware authorizeUser', function () {
@@ -66,5 +66,5 @@ describe('Verifica middleware authorizeUser', function () {
     expect(next.getCall(0).args[0].message).to.be.equal('Forbidden');
   });
 
-  afterEach(Sinon.restore)
+  afterEach(Sinon.restore);
 });
