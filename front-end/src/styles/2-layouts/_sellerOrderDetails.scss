@@ -1,0 +1,49 @@
+.sellerOrderDetails-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  justify-items: center;
+  row-gap: 2rem;
+  width: 100%;
+  min-height: 100vh;
+
+  &-content {
+    padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    h2 {
+      font-size: 2rem;
+      align-self: flex-start;
+      width: 100%;
+      padding-bottom: 0.5rem;
+      border-bottom: 0.1rem solid $white-color;
+    }
+
+    &-table {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      h1 {
+        background-color: $white-color;
+        color: $primary-color;
+        padding: 0 1rem;
+        align-self: flex-end;
+        font-size: 2rem;
+        border-bottom-left-radius: 1rem;
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 1rem;
+  
+        span {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+}

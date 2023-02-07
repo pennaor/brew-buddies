@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useHref } from 'react-router-dom';
+
+const DEFAULT_BUTTON_TESTID = 'customer_products__element-navbar-link-orders';
 
 const CUSTOMER_BUTTON = [
   {
@@ -9,7 +11,7 @@ const CUSTOMER_BUTTON = [
     description: 'Produtos',
   },
   {
-    testId: 'customer_products__element-navbar-link-orders',
+    testId: DEFAULT_BUTTON_TESTID,
     rota: '/customer/orders',
     description: 'Meus Pedidos',
   },
@@ -17,14 +19,23 @@ const CUSTOMER_BUTTON = [
 
 const SELLER_BUTTON = [
   {
-    testId: 'customer_products__element-navbar-link-orders',
+    testId: DEFAULT_BUTTON_TESTID,
     rota: '/seller/orders',
-    description: 'Produtos',
+    description: 'Pedidos',
+  },
+];
+
+const ADMIN_BUTTON = [
+  {
+    testId: DEFAULT_BUTTON_TESTID,
+    rota: '/admin/manage',
+    description: 'Gerenciar Usuários',
   },
 ];
 
 export default function Header({ name, role }) {
   const navigate = useNavigate();
+  const history = useHref();
 
   const signOut = () => {
     localStorage.removeItem('user');
@@ -36,6 +47,7 @@ export default function Header({ name, role }) {
       type="button"
       key={ button.description }
       data-testid={ button.testId }
+      disabled={ history === button.rota }
       onClick={ () => navigate(button.rota) }
     >
       {button.description}
@@ -43,22 +55,37 @@ export default function Header({ name, role }) {
   ));
 
   return (
-    <nav>
-      {role === 'customer' && buttonFactory(CUSTOMER_BUTTON)}
-      {role === 'seller' && buttonFactory(SELLER_BUTTON)}
-      <h2
-        data-testid="customer_products__element-navbar-user-full-name"
-      >
-        {name}
-      </h2>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => signOut() }
-      >
-        Sair
-      </button>
-    </nav>
+    <header className="header-container">
+      <nav className="header-container-content">
+        <div className="header-container-content-buttons">
+          <div>
+            {role === 'customer' && buttonFactory(CUSTOMER_BUTTON)}
+            {role === 'seller' && buttonFactory(SELLER_BUTTON)}
+            {role === 'administrator' && buttonFactory(ADMIN_BUTTON)}
+          </div>
+        </div>
+        <div className="header-container-content-logo">
+          <div>
+            <h2>Brew Buddies</h2>
+            <img src="/logo-brewBuddies.png" alt="homem com caneca de cerveja" />
+          </div>
+        </div>
+        <div className="header-container-content-logout">
+          <p
+            data-testid="customer_products__element-navbar-user-full-name"
+          >
+            {name}
+          </p>
+          <button
+            type="button"
+            data-testid="customer_products__element-navbar-link-logout"
+            onClick={ () => signOut() }
+          >
+            Sair
+          </button>
+        </div>
+      </nav>
+    </header>
   );
 }
 

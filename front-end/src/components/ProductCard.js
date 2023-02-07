@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useEffect, useState } from 'react';
+import { MdOutlineAdd, MdRemove } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
 const nonExistentIndex = -1;
@@ -25,30 +27,33 @@ export default function ProductCard({
   }, [itemQuantity]);
 
   return (
-    <div>
-      <div>
-        <p data-testid={ `customer_products__element-card-price-${id}` }>
-          {price.toString().replace('.', ',')}
+    <div className="productCard-container">
+      <div className="productCard-container-content">
+        <p
+          className="productCard-container-content-price"
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          {`R$ ${price.toString().replace('.', ',')}`}
         </p>
-        <img
-          data-testid={ `customer_products__img-card-bg-image-${id}` }
-          style={ { width: '60px' } }
-          src={ urlImage }
-          alt={ name }
-        />
-      </div>
-      <div>
-        <p data-testid={ `customer_products__element-card-title-${id}` }>
-          {name}
-        </p>
-        <div>
+        <div className="productCard-container-content-product">
+          <img
+            data-testid={ `customer_products__img-card-bg-image-${id}` }
+            src={ urlImage }
+            alt={ name }
+          />
+          <p data-testid={ `customer_products__element-card-title-${id}` }>
+            {name}
+          </p>
+        </div>
+        <div className="productCard-container-content-quantity">
           <button
             type="button"
+            className="decreaseButton"
             data-testid={ `customer_products__button-card-rm-item-${id}` }
             disabled={ quantity === 0 }
             onClick={ () => removeItemCart(product) }
           >
-            Remover
+            <MdRemove />
           </button>
           <label htmlFor="quantity">
             <input
@@ -62,10 +67,11 @@ export default function ProductCard({
           </label>
           <button
             type="button"
+            className="addButton"
             data-testid={ `customer_products__button-card-add-item-${id}` }
             onClick={ () => addItemCart(product) }
           >
-            Adicionar
+            <MdOutlineAdd />
           </button>
         </div>
       </div>

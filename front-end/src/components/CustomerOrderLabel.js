@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 export default function CustomerOrderLabel({ order, changeStatusOrder }) {
   const formatedDate = dayjs(order.saleDate).format('DD/MM/YYYY');
   return (
-    <div>
+    <div className="customerOrderLabel-container">
       <p>
         PEDIDO
         {' '}
@@ -26,12 +26,18 @@ export default function CustomerOrderLabel({ order, changeStatusOrder }) {
       <p
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        {formatedDate}
+        {`Data do pedido: ${formatedDate}`}
       </p>
       <p
         data-testid="customer_order_details__element-order-details-label-delivery-status-"
+        className={
+          (order.status === 'Pendente' && 'pendente')
+          || (order.status === 'Preparando' && 'preparando')
+          || (order.status === 'Em Trânsito' && 'em-transito')
+          || 'entregue'
+        }
       >
-        {order.status}
+        {`Status: ${order.status}`}
       </p>
       <button
         type="button"
@@ -39,7 +45,7 @@ export default function CustomerOrderLabel({ order, changeStatusOrder }) {
         onClick={ () => changeStatusOrder() }
         disabled={ order.status !== 'Em Trânsito' }
       >
-        MARCAR COMO ENTREGUE
+        Marcar como entregue
       </button>
     </div>
   );

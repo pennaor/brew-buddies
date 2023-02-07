@@ -18,13 +18,13 @@ export default function FormUserRegistration({ createUser }) {
   };
 
   return (
-    <form>
+    <form className="form-container">
       <label htmlFor="name">
         <p>Nome</p>
         <input
           type="text"
           id="name"
-          placeholder="Nome e sobrenome..."
+          placeholder="Antônio Alonso..."
           data-testid="admin_manage__input-name"
           value={ name }
           onChange={ ({ target }) => setName(target.value) }
@@ -35,7 +35,7 @@ export default function FormUserRegistration({ createUser }) {
         <input
           type="email"
           id="email"
-          placeholder="Digite o email..."
+          placeholder="Usuário@usuario.com"
           data-testid="admin_manage__input-email"
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
@@ -46,7 +46,7 @@ export default function FormUserRegistration({ createUser }) {
         <input
           type="password"
           id="password"
-          placeholder="Sua senha..."
+          placeholder="***********"
           data-testid="admin_manage__input-password"
           value={ password }
           onChange={ ({ target }) => setPassword(target.value) }
@@ -76,7 +76,7 @@ export default function FormUserRegistration({ createUser }) {
           role,
         }) }
       >
-        CADASTRAR
+        Cadastrar
       </button>
     </form>
   );

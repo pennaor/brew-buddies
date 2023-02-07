@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { FaTrashAlt } from 'react-icons/fa';
 
 export default function OrderTable({ productOrders, removeItem, page }) {
   let tableHeader = [
@@ -9,15 +10,15 @@ export default function OrderTable({ productOrders, removeItem, page }) {
   }
 
   return (
-    <table>
-      <thead>
+    <table className="orderTable-container">
+      <thead className="orderTable-container-head">
         <tr>
           {tableHeader.map((description, index) => (
             <th key={ index }>{description}</th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className="orderTable-container-body">
         {productOrders.map((itemCart, index) => (
           <tr
             key={ itemCart.id }
@@ -40,28 +41,26 @@ export default function OrderTable({ productOrders, removeItem, page }) {
               {itemCart.quantity}
             </td>
             <td>
-              {'R$ '}
               <span
                 data-testid={
                   `${page}__element-order-table-unit-price-${index}`
                 }
               >
-                {(itemCart.price)
+                {`R$ ${(itemCart.price)
                   .toString()
-                  .replace('.', ',')}
+                  .replace('.', ',')}`}
               </span>
             </td>
             <td>
-              {'R$ '}
               <span
                 data-testid={
                   `${page}__element-order-table-sub-total-${index}`
                 }
               >
-                {(itemCart.price * itemCart.quantity)
+                {`R$ ${(itemCart.price * itemCart.quantity)
                   .toFixed(2)
                   .toString()
-                  .replace('.', ',')}
+                  .replace('.', ',')}`}
               </span>
             </td>
             {
@@ -74,7 +73,9 @@ export default function OrderTable({ productOrders, removeItem, page }) {
                   data-testid={ `${page}__element-order-table-remove-${index}` }
                   onClick={ ({ target }) => removeItem(Number(target.name)) }
                 >
-                  Remover
+                  Excluir
+                  {' '}
+                  <FaTrashAlt />
                 </button>
               </td>
             )
