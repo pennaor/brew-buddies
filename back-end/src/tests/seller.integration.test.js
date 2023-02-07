@@ -1,5 +1,4 @@
 const chai = require('chai');
-const { expect } = chai;
 const { describe } = require('mocha');
 const Sinon = require('sinon');
 const chaiHttp = require('chai-http');
@@ -7,6 +6,7 @@ const { Model } = require('sequelize');
 const app = require('../api/app');
 const { sellerSales, seller } = require('./mocks/seller.service.mock');
 
+const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('Testes de integração de seller', function () {
@@ -37,7 +37,7 @@ describe('Testes de integração de seller', function () {
     Sinon.stub(Model, 'findAll').resolves(seller);
 
     const response = await chai.request(app)
-      .get(`/sellers`);
+      .get('/sellers');
     
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.deep.equal(seller);

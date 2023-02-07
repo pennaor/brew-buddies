@@ -69,7 +69,7 @@ describe('Verificação de funcionalidades do controller seller', function () {
     Sinon.stub(sellerService, 'getSellerById').resolves(seller);
     const { response, next } = controllerParams(Sinon);
 
-    await sellerController.getSellerById({ params: { id: 5 }}, response, next);
+    await sellerController.getSellerById({ params: { id: 5 } }, response, next);
 
     expect(response.status.calledOnce).to.be.equal(true); 
     expect(response.status.getCall(0).args[0]).to.be.equal(200);

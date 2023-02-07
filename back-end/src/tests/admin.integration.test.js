@@ -1,15 +1,14 @@
 const chai = require('chai');
-const { expect } = chai;
 const { describe } = require('mocha');
 const Sinon = require('sinon');
 const chaiHttp = require('chai-http');
 const { Model } = require('sequelize');
 const app = require('../api/app');
-const HttpException = require('../exceptions/HttpException');
 const { user } = require('./mocks/user.test.mock');
 const jwtUtils = require('../utils/jwt.utils');
 const { newUser, createdUser } = require('./mocks/admin.service.mock');
 
+const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('Testes de integração de admin', function () {
@@ -42,8 +41,8 @@ describe('Testes de integração de admin', function () {
 
   it('POST /admin/manage/users deve responder com status code 201 e body com dados do usuário criado',
   async function () {
-    Sinon.stub(Model, "findOne").resolves();
-    Sinon.stub(Model, "create").resolves(createdUser);
+    Sinon.stub(Model, 'findOne').resolves();
+    Sinon.stub(Model, 'create').resolves(createdUser);
     const { password, ...rest } = createdUser;
 
     const response = await chai.request(app)

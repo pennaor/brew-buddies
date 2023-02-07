@@ -1,7 +1,7 @@
-const { expect } = require("chai");
-const { describe } = require("mocha");
-const jwtUtils = require("../../utils/jwt.utils");
-const { user } = require("../mocks/user.test.mock");
+const { expect } = require('chai');
+const { describe } = require('mocha');
+const jwtUtils = require('../../utils/jwt.utils');
+const { user } = require('../mocks/user.test.mock');
 
 describe('Verifica funções de utils associadas ao JWT', function () {
   it('"generateToken" ao receber não receber payload válido deve lançar erro',
@@ -10,7 +10,7 @@ describe('Verifica funções de utils associadas ao JWT', function () {
       const token = jwtUtils.generateToken();
       expect(token).to.be.undefined;
     } catch (error) {
-      expect(error).to.be.instanceof(Error)
+      expect(error).to.be.instanceof(Error);
     }
   });
 
@@ -20,7 +20,7 @@ describe('Verifica funções de utils associadas ao JWT', function () {
       const payload = jwtUtils.verifyToken('');
       expect(payload).to.be.undefined;
     } catch (error) {
-      expect(error).to.be.instanceof(Error)
+      expect(error).to.be.instanceof(Error);
     }
   });
 

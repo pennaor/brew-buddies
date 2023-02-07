@@ -9,8 +9,8 @@ const {
   newSaleId,
   invalidNewSalePayload,
   newSalePayload,
-  saleSellerProducts,
-  normalizedSaleSellerProducts
+  normalizedSaleSellerProducts,
+  saleSellerProductsInstance,
 } = require('../mocks/sale.service.mock');
 
 describe('Verificação de funcionalidades do serviço de sale', function () {
@@ -39,7 +39,7 @@ describe('Verificação de funcionalidades do serviço de sale', function () {
 
   it('"getSaleById" ao receber id de venda deve retornar informações da venda, sellerName e products associados',
   async function () {
-    Sinon.stub(Model, 'findOne').resolves(saleSellerProducts);
+    Sinon.stub(Model, 'findOne').resolves(saleSellerProductsInstance);
 
     const result = await saleService.getSaleById(7);
 

@@ -1,5 +1,4 @@
 const chai = require('chai');
-const { expect } = chai;
 const { describe } = require('mocha');
 const Sinon = require('sinon');
 const chaiHttp = require('chai-http');
@@ -10,6 +9,7 @@ const { saleIdProductsQuantities } = require('./mocks/saleProduct.service.mock')
 const { user } = require('./mocks/user.test.mock');
 const jwtUtils = require('../utils/jwt.utils');
 
+const { expect } = chai;
 chai.use(chaiHttp);
 
 const newSaleId = 7;
@@ -35,6 +35,4 @@ describe('Testes de integração de saleProduct', function () {
     expect(response.status).to.be.equal(201);
     expect(response.body).to.be.deep.equal({ saleId: newSaleId });
   });
-
-  afterEach(Sinon.restore);
 });

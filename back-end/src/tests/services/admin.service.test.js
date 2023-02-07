@@ -1,43 +1,40 @@
-const { expect } = require("chai");
-const { describe } = require("mocha");
-const { Model } = require("sequelize");
-const Sinon = require("sinon");
-
+const { expect } = require('chai');
+const { describe } = require('mocha');
+const { Model } = require('sequelize');
+const Sinon = require('sinon');
 const HttpException = require('../../exceptions/HttpException');
-const adminService = require("../../services/admin.service");
-const { createdUser, newUser, users, delUser, invalidUser } = require("../mocks/admin.service.mock");
+const adminService = require('../../services/admin.service');
+const { createdUser, users, delUser, invalidUser } = require('../mocks/admin.service.mock');
+const { newUserInstance, newUser } = require('../mocks/user.test.mock');
 
-describe("Teste Admin Service", () => {
-
-  it("Verifica se é possível cadastrar um novo usuário", async () => {
-    const stub = Sinon.stub(Model, "create").resolves(createdUser);
-    const user = await adminService.register(newUser)
+describe('Teste Admin Service', () => {
+  it('Verifica se é possível cadastrar um novo usuário', async function () {
+    const stub = Sinon.stub(Model, 'create').resolves(newUserInstance);
+    const user = await adminService.register(newUser);
 
     expect(stub.calledOnce).to.be.true;
-
-    expect(user.id).to.equal(createdUser.id);
-    expect(user.name).to.equal(createdUser.name);
-    expect(user.email).to.equal(createdUser.email);
-    expect(user.password).to.equal(createdUser.password);
-    expect(user.role).to.equal(createdUser.role);
+    expect(user.id).to.equal(newUser.id);
+    expect(user.name).to.equal(newUser.name);
+    expect(user.email).to.equal(newUser.email);
+    expect(user.role).to.equal(newUser.role);
   });
 
-  it("Encontra todos os usuários", async () => {
-    const stub = Sinon.stub(Model, "findAll").returns(users);
+  it('Encontra todos os usuários', async function () {
+    const stub = Sinon.stub(Model, 'findAll').returns(users);
     await adminService.getAllUsers();
 
     expect(stub.calledWith(users));
   });
 
-  it("Verifica se é possível deletar um usuário", async () => {
-    const stub = Sinon.stub(Model, "destroy").resolves(delUser.id);
+  it('Verifica se é possível deletar um usuário', async function () {
+    const stub = Sinon.stub(Model, 'destroy').resolves(delUser.id);
     await adminService.deleteUser(delUser.id);
 
     expect(stub.calledWith(delUser.id)).to.not.be.true;
   });
 
-  it("Verifica se o id do usuário é valido", async () => {
-    Sinon.stub(Model, "destroy").resolves(delUser.id);
+  it('Verifica se o id do usuário é valido', async function () {
+    Sinon.stub(Model, 'destroy').resolves(delUser.id);
     await adminService.deleteUser('s1')
       .then(
         (result) => expect(result).not.be.ok,
@@ -49,8 +46,8 @@ describe("Teste Admin Service", () => {
       );
   });
 
-  it("Verifica se ao tentar registrar usuário inválido é lançado um erro", async () => {
-    Sinon.stub(Model, "create").resolves(createdUser);
+  it('Verifica se ao tentar registrar usuário inválido é lançado um erro', async function () {
+    Sinon.stub(Model, 'create').resolves(createdUser);
     await adminService.register(invalidUser)
       .then(
         (result) => expect(result).not.be.ok,
@@ -62,9 +59,9 @@ describe("Teste Admin Service", () => {
       );
   });
 
-  it("Verifica se ao tentar registrar usuário existente é lançado um erro", async () => {
-    Sinon.stub(Model, "findOne").resolves({});
-    Sinon.stub(Model, "create").resolves(createdUser);
+  it('Verifica se ao tentar registrar usuário existente é lançado um erro', async function () {
+    Sinon.stub(Model, 'findOne').resolves({});
+    Sinon.stub(Model, 'create').resolves(createdUser);
 
     await adminService.register(newUser)
       .then(
@@ -79,5 +76,3 @@ describe("Teste Admin Service", () => {
  
   afterEach(Sinon.restore);
 });
-
-

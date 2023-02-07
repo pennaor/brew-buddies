@@ -2,9 +2,10 @@ const saleService = require('../services/sale.service');
 
 const getSaleById = async (req, res, next) => {
   const { id } = req.params;
+
   try {
-    const response = await saleService.getSaleById(id);
-    return res.status(200).json(response);
+    const result = await saleService.getSaleById(id);
+    return res.status(200).json(result);
   } catch (error) {
     next(error);
   }

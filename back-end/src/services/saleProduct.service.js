@@ -7,6 +7,7 @@ const create = async (saleId, products, createOptions) => {
   if (error) {
     throw new HttpException(400, error.message);
   }
+
   return Promise.all(
     products
       .map(({ productId, quantity }) => SaleProduct

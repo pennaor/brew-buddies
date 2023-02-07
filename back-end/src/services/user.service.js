@@ -11,12 +11,12 @@ const authenticate = async (email, password) => {
     throw new HttpException(400, error.message);
   } 
 
-  const userData = await User.findOne({ where: { email, password: md5(password) } });
-  if (!userData) {
+  const user = await User.findOne({ where: { email, password: md5(password) } });
+  if (!user) {
     throw new HttpException(404, 'User not found');
   }
 
-  const { password: _, ...userWithoutPassword } = userData.dataValues;
+  const { password: _, ...userWithoutPassword } = user.dataValues;
   const token = jwtUtils.generateToken(userWithoutPassword);
   return { ...userWithoutPassword, token };
 };
@@ -32,13 +32,15 @@ const register = async (name, email, password) => {
     throw new HttpException(409, 'User already registered');
   }
 
-  const user = await User.create({
+  const { dataValues: { password: _, ...user } } = await User.create({
     name,
     email,
     password: md5(password),
     role: 'customer',
   });
-  delete user.dataValues.password;
+
+  user.token = jwtUtils.generateToken(user);
+
   return user;
 };
 

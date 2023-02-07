@@ -1,9 +1,9 @@
-const { expect } = require("chai");
-const { describe } = require("mocha");
-const jwtUtils = require("../../utils/jwt.utils");
+const { expect } = require('chai');
+const { describe } = require('mocha');
 const Sinon = require('sinon');
+const jwtUtils = require('../../utils/jwt.utils');
 const authenticateUser = require('../../middlewares/authenticateUser');
-const { user } = require("../mocks/user.test.mock");
+const { user } = require('../mocks/user.test.mock');
 const controllerParams = require('../mocks/controllerParams.mock');
 const HttpException = require('../../exceptions/HttpException');
 
@@ -38,5 +38,5 @@ describe('Verifica middleware authenticateUser', function () {
     expect(next.getCall(0).args[0].message).to.be.equal('Token ausente ou inválido');
   });
 
-  afterEach(Sinon.restore)
+  afterEach(Sinon.restore);
 });

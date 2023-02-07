@@ -5,7 +5,7 @@ const HttpException = require('../../exceptions/HttpException');
 const controllerParams = require('../mocks/controllerParams.mock');
 const customerController = require('../../controllers/customer.controller');
 const customerService = require('../../services/customer.service');
-const { customerSale } = require("../mocks/customer.service.mock");
+const { customerSale } = require('../mocks/customer.service.mock');
 
 describe('Verificação de funcionalidades do controller costumer', function () {
   it('"getSalesByCustomerId" em caso de sucesso deve responder com status code 200 e array com compras do costumer',
