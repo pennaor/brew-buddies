@@ -21,10 +21,15 @@
   "dependencies": {
     "@testing-library/jest-dom": "5.16.2",
     "@testing-library/react": "12.1.4",
-    "@testing-library/user-event": "13.5.0",
+    "@testing-library/user-event": "^14.4.3",
+    "axios": "^1.2.3",
+    "dayjs": "^1.11.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.7.1",
+    "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.0",
+    "sass": "^1.58.0",
     "serve": "13.0.2",
     "web-vitals": "2.1.4"
   },
@@ -33,7 +38,7 @@
     "stylelint": "14.6.0",
     "stylelint-config-standard": "25.0.0",
     "stylelint-order": "5.0.0"
-  }, 
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -62,6 +67,9 @@
       "reportWebVitals.js",
       "./services/renderWithRouter",
       "./services/history"
-    ]
+    ],
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }

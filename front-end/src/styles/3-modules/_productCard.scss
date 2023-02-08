@@ -1,0 +1,124 @@
+.productCard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 15rem;
+  height: 23rem;
+  background-color: $white-color;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.15rem solid transparent;
+
+  &:hover {
+    box-shadow: 0 0 0.5rem $white-color;
+    border: 0.15rem solid $white-color;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    row-gap: 1rem;
+    width: 100%;
+
+    &-price {
+      left: 0rem;
+      top: -0.75rem;
+      position: absolute;
+      text-align: center;
+      font-size: 1.25rem;
+      background-color: yellow;
+      color: $black-color;
+      padding: 1.5rem 0.5rem;
+      font-weight: 600;
+      border-radius: 50%;
+    }
+  
+    &-product {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  
+      img {
+        background-color: $white-color;
+        height: 13rem;
+        border-radius: 0.5rem;
+      }
+  
+      p {
+        min-height: 2.5rem;
+        font-size: 1.25rem;
+        text-align: center;
+        color: $black-color;
+      }
+    }
+
+    &-quantity {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 3.5rem;
+      max-width: 100%;
+
+      label {
+        input {
+          text-align: center;
+          font-size: 2rem;
+          height: 3rem;
+          width: 4rem;
+          
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+
+          border-bottom: 0.1rem solid $black-color;
+          border-top: 0.1rem solid $primary-color;
+          border-left: none;
+          border-right: none;
+        }
+      }
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0.1rem solid $primary-color;
+        color: $white-color;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        transition: .3s;
+
+        svg {
+          color: $white-color;
+          font-size: 2rem;
+          font-weight: 600;
+        }
+      }
+      
+      .decreaseButton {
+        background-color: $seventh-color;
+        border-bottom-left-radius: 50%;
+        border-top-left-radius: 50%;
+
+        &:disabled {
+          opacity: 75%;
+          cursor: not-allowed;
+        }
+      }
+      
+      .addButton {
+        background-color: $third-light-color;
+        border-bottom-right-radius: 50%;
+        border-top-right-radius: 50%;
+        
+      }
+    }
+  }
+}
