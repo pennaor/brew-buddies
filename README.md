@@ -130,3 +130,5 @@ npm run test:coverage
 	 - npm scripts
 
 </details>
+
+<img src="assets/samples/purchasing_flow.gif" />
