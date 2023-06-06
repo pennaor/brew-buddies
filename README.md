@@ -1,5 +1,7 @@
 # Brew Buddies
 
+<img src="./assets/logo.png" width="300px" style="margin-bottom: 14px;" />
+
 Trata-se de uma aplicação que tem como objetivo provêr agilidade de atendimento via delivery a revendedores de bebidas. Foi desenvolvida como projeto de aprendizado em grupo no curso de desenvolvimento Web [Trybe](https://www.betrybe.com/).
 
 A aplicação se encarrega de autenticar e autorizar os usuários, assim como organizar os pedidos e entregas:
@@ -8,7 +10,7 @@ A aplicação se encarrega de autenticar e autorizar os usuários, assim como or
   - O vendedor aprova, prepara e envia esse pedido
     - O vendedor possui as informações detalhadas sobre o pedido
   - Quando o produto é recebido pelo cliente, o mesmo marca o pedido como "recebido"
-  - O administrador do sistema possui a capacidade de adicionar e remover usuários
+  - O administrador do sistema possui a capacidade de atribuir o tipo de usuário enquanto cria um novo, assim como remover usuário já cadastrado
 
 ⚠️ MySQL deve estar instalado para o funcionamento da API.
 
@@ -36,6 +38,36 @@ A aplicação se encarrega de autenticar e autorizar os usuários, assim como or
   - [Eslint](https://eslint.org/)
   - [Stylelint](https://stylelint.io/)
 
+</details>
+
+<details>
+  <summary><strong>Pré-visualização</strong></summary>
+  <blockquote>
+    <details>
+      <summary>Login</summary>
+      <img src="./assets/samples/login_flow.gif" />
+    </details>
+    <details>
+      <summary>Registro de usuário</summary>
+      <img src="./assets/samples/register_flow.gif" />
+    </details>
+    <details>
+      <summary>Comprador - Fazendo pedido</summary>
+      <img src="./assets/samples/purchasing_flow.gif" />
+    </details>
+    <details>
+      <summary>Vendedor - Detalhes e interação com pedido</summary>
+      <img src="./assets/samples/seller_orders_flow.gif" />
+    </details>
+    <details>
+      <summary>Comprador - Detalhes e interação com pedido</summary>
+      <img src="./assets/samples/buyer_orders_flow.gif" />
+    </details>
+    <details>
+      <summary>Administrador - Controle de usuários</summary>
+      <img src="./assets/samples/user_management_flow.gif" />
+    </details>
+  </blockquote>
 </details>
 
 <details>
@@ -121,14 +153,24 @@ npm run test:coverage
 </details>
 
 <details>
-<summary><strong>Trybe</strong></summary>
+<summary><strong>Nosso grupo</strong></summary>
 
-  - São de total autoria da [Trybe](https://www.betrybe.com/):
-  	 - Proposta do projeto
-  	 - Regras de Lint
-   - setup pm2
-	 - npm scripts
+- [Aluisio Penna](https://github.com/pennaor)
+- [João E. S. Pacheco](https://github.com/joaoespacheco)
+- [Jonathan K.](https://github.com/jonathankarlinski)
+- [Lau](https://github.com/laujuu)
+- [Magno Gouvêa](https://github.com/magnogouvea)
 
 </details>
 
-<img src="assets/samples/purchasing_flow.gif" />
+<details>
+<summary><strong>Trybe</strong></summary>
+
+  São de total autoria da [Trybe](https://www.betrybe.com/):
+
+  - Proposta do projeto
+  - Regras de Lint
+  - setup pm2
+  - npm scripts
+
+</details>
